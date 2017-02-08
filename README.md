@@ -1,4 +1,4 @@
-# Project PLASE
+# Project Shenandoah
 A mobile friendly web-application that can filter a database of landlord shelters via requested(by Project PLASE) parameters.
 
 All command-line instructions should be done in the /plase directory

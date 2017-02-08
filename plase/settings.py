@@ -77,8 +77,8 @@ WSGI_APPLICATION = 'plase.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'plase',
-        'USER': 'plase',
+        'NAME': 'shenandoah',
+        'USER': 'shenandoah',
         'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': '5432',

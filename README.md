@@ -6,16 +6,12 @@ All command-line instructions should be done in the /plase directory
 ## Requirements
 _* Command instructions are based on Debian-Ubuntu_
 
-__Python version:__ 3.5.2    
+__Python version:__ 3.x.x    
 __pip version:__ 9.0.1(as of now)
 
-1. Download and install [Python 3.5.2](https://www.python.org/downloads/release/python-352/).
+1. Download and install [Python 3](https://www.python.org/downloads/).
 
-  ```bash
-  sudo add-apt-repository ppa:fkrull/deadsnakes
-  sudo apt-get update
-  sudo apt-get install python3.5
-  ```
+  `sudo apt-get install python3`
 
 2. Update pip by downloading [get-pip.py](https://bootstrap.pypa.io/get-pip.py) (or copy and paste into file).
 
@@ -23,19 +19,19 @@ __pip version:__ 9.0.1(as of now)
 
 4. Run the file to update pip:
 
-  `sudo python3.5 get-pip.py`
+  `sudo python3 get-pip.py`
 
-  With this update, `pip3` and `pip` should point to the same python dist-package: `python3.5/dist-packages`
+  With this update, `pip3` and `pip` should point to the same python dist-package: `python3/dist-packages`
 
 5. Override the Python 2 alias with Python 3:
 
-  `alias python=python3.5` (not permenant)
+  `alias python=python3` (not permenant)
 
   To permanently add an alias, modify the `~/.bashrc` file and add the following line below other aliases:
 
-  `alias python='python3.5'`
+  `alias python='python3'`
 
-Now `python` should run Python version 3.5.2
+Now `python` should run Python version 3.x.x
 
 __Dependencies:__ To install Python dependencies, use pip to install from the [requirements.txt](https://github.com/Xerxous/shenandoah) file:
 
@@ -45,11 +41,14 @@ NOTE: Django may display errors for other versions of Python.
 
 ## Setting up the PostgreSQL Database
 
-Install [PostgreSQL](https://www.postgresql.org/download/) for Python3:
+Install [PostgreSQL](https://www.postgresql.org/download/) and psycopg2 for Python 3:
 
-  `sudo apt-get install postgresql`
+```bash
+sudo apt-get install postgresql
+sudo apt-get install python3-psycopg2
+```
 
-Create a PostgreSQL account
+#### Configure PostgreSQL
 1. Login as the user "postgres":
 
     `sudo -i -u postgres`
@@ -57,8 +56,7 @@ Create a PostgreSQL account
 2. Create a database called "shenandoah":
 
   `createdb shenandoah`
-3. Run `psql` on the database "shenandoah" and create a user through the psql as "postgres":
-
+3. Run `psql` on the database "shenandoah" and create a user:
   ```PosgreSQL
   psql -d shenandoah
   CREATE USER shenandoah WITH LOGIN PASSWORD 'password';
@@ -71,22 +69,22 @@ Create a PostgreSQL account
 
 4. Modify the configuration file `pg_hba.conf` in the directory `/etc/postgresql/<version>/main/`. The path may vary depending on the version of PostgreSQL.
 
-    `sudo nano /etc/postgresql/9.5/mainpg_hba.conf`
+    `sudo nano /etc/postgresql/9.5/main/pg_hba.conf`
 
     Modify the "peer" authentication method to "md5".
     ```
     # "local" is for Unix domain socket connections only
     local   all             all                      peer
     ```
-
-    After modification, your configuration should look like this
-
+    After modification, your configuration should look like this:
     ```
     # "local" is for Unix domain socket connections only
     local   all             all                      md5
     ```
-    Save the `pg_hba.conf` file.
-5. You should successfully login to the "shenandoah" database with this command. Provide the password or "shenandoah" as necessary:
+    Save the `pg_hba.conf` file and restart the PostgreSQL service:
+
+    `sudo service postgresql restart`
+5. You should successfully login to the "shenandoah" database with this command. Provide the password for the user "shenandoah" as necessary:
 
   `psql -d shenandoah -U shenandoah -W`
 
@@ -97,7 +95,7 @@ Create a PostgreSQL account
   `python manage.py migrate`
 
   ## Running Django
-  To run the web-application, run the server on your local machine:
+  To run the web-application on your local machine, return the following command:
 
   `python manage.py runserver`
 
@@ -107,5 +105,5 @@ Create a PostgreSQL account
   Database access available via Django-admin.
 
   http://127.0.0.1:8000/admin
-  * Username: dev
-  * Password: DevAdmin1
+  * Username: shenandoah
+  * Password: -

@@ -1,10 +1,12 @@
-__author__ = '610280'
+import os
 from xlrd import open_workbook
+
 
 FIRST_ROW = 0
 SECOND_ROW = 1
+PATH = 'home/jackson/examples.xlsx'
 
-book = open_workbook('examples.xlsx')
+book = open_workbook(PATH)
 sheet = book.sheet_by_index(0)
 
 #LABEL ROWS(1 and 2)
@@ -18,4 +20,3 @@ print(columns)
 dict_list = []
 # for row_index in range(1, sheet.nrows):
 #     sheet.cell(row_index, col_index).value
-

@@ -7,8 +7,8 @@ SECOND_ROW = 1
 ENTRY_START_ROW = 2
 ADDRESS_START = 5
 ADDRESS_END = 10
-XLSX_PATH = '/home/jackson/examples.xlsx'
-DJANGO_PATH = '/home/jackson/Projects/shenandoah/'
+XLSX_PATH = input('Specify excel DB path: ')
+DJANGO_PATH = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
 
 #Django setup to import models
 sys.path.append(DJANGO_PATH)
@@ -17,7 +17,7 @@ django.setup()
 from search.models import Apartment, Landlord
 
 #xlsx reading
-book = open_workbook(PATH)
+book = open_workbook(XLSX_PATH)
 sheet = book.sheet_by_index(SHEET_INDEX)
 
 #LABEL ROWS(1 and 2)
@@ -39,5 +39,5 @@ for col_index in range(len(columns)):
 dict_list = dict()
 for index in range(len(columns)):
     dict_list[columns[index]] = entries[index]
-
+print(dict_list)
 #load in db

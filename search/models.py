@@ -2,23 +2,53 @@ from django.db import models
 
 # Create your models here.
 class Apartment(models.Model):
-    agency = models.CharField(max_length=50, default='')
-    individual = models.CharField(max_length=30, default='')
-    number = models.CharField(max_length=12, default='') # Phone Number including dashes
+    agency = models.CharField(max_length=50, default='', blank=False)
+    number = models.CharField(max_length=12, default='', blank=False) # Phone Number including dashes
     email = models.CharField(max_length=20, default='') #optional
-    building = models.CharField(max_length=50, default='')
-    st_one = models.CharField(max_length=50, default='')
+    building = models.CharField(max_length=50, default='') #optional
+    st_one = models.CharField(max_length=50, default='', blank=False)
     st_two = models.CharField(max_length=50, default='') #optional
-    city = models.CharField(max_length=20, default='')
+    area = models.CharField(max_length=20, default='', blank=False)
     state = models.CharField(max_length=2, default='') #2 state acrynoym
-    low = models.IntegerField(default=0)
-    high = models.IntegerField(default=0)
-    rooms = models.BooleanField(default=False)
-    studio = models.BooleanField(default=False)
-    one_br = models.BooleanField(default=False)
-    two_br = models.BooleanField(default=False)
-    three_br = models.BooleanField(default=False)
+    zipcode = models.CharField(max_length=5, default='', blank=False)
+    low = models.IntegerField(default=0, blank=False)
+    high = models.IntegerField(default=0, blank=False)
+    cost_notes = models.CharField(max_length=50, default='') #optional
+    rooms = models.BooleanField(default=False, blank=False)
+    studio = models.BooleanField(default=False, blank=False)
+    one_br = models.BooleanField(default=False, blank=False)
+    two_br = models.BooleanField(default=False, blank=False)
+    three_br = models.BooleanField(default=False, blank=False)
     notes = models.CharField(max_length=500, default='') #optional
 
+    def __unicode__(self):
+        return self.agency
+
+    class Meta:
+        verbose_name_plural = "Apartments"
+
 class Landlord(models.Model):
-    pass
+    individual = models.CharField(max_length=50, default='', blank=False)
+    number = models.CharField(max_length=12, default='', blank=False) # Phone Number including dashes
+    email = models.CharField(max_length=20, default='') #optional
+    building = models.CharField(max_length=50, default='') #optional
+    st_one = models.CharField(max_length=50, default='') #optional
+    st_two = models.CharField(max_length=50, default='') #optional
+    city = models.CharField(max_length=20, default='')  #optional
+    state = models.CharField(max_length=2, default='') #2 state acrynoym, optional
+    zipcode = models.CharField(max_length=5, default='', blank=False)
+    low = models.IntegerField(default=0, blank=False)
+    high = models.IntegerField(default=0, blank=False)
+    cost_notes = models.CharField(max_length=50, default='') #optional
+    rooms = models.BooleanField(default=False, blank=False)
+    studio = models.BooleanField(default=False, blank=False)
+    one_br = models.BooleanField(default=False, blank=False)
+    two_br = models.BooleanField(default=False, blank=False)
+    three_br = models.BooleanField(default=False, blank=False)
+    notes = models.CharField(max_length=500, default='') #optional
+
+    def __unicode__(self):
+        return self.indiidual + ': ' + self.st_one
+
+    class Meta:
+        verbose_name_plural = "Apartments"

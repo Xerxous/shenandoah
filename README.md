@@ -105,5 +105,7 @@ sudo apt-get install python3-psycopg2
   Database access available via Django-admin.
 
   http://127.0.0.1:8000/admin
-  * Username: shenandoah
-  * Password: -
+
+  Set the username and password for your Django admin account:
+
+  `python manage.py createsuperuser`

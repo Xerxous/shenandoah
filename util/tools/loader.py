@@ -1,4 +1,4 @@
-import models
+from .setup import Apartment, Landlord
 
 ENTRY_START_ROW = 2
 SHEET_INDICIES = [0, 1]
@@ -66,7 +66,7 @@ def load_db(db, index):
 
 def load_apt(db):
     for i in range(len(db['agency'])):
-        models.Apartment.objects.create(
+        Apartment.objects.create(
             agency=db['agency'][i],
             number=db['number'][i],
             email=db['email'][i],
@@ -89,7 +89,7 @@ def load_apt(db):
 
 def load_landlord(db):
     for i in range(len(db['individual'])):
-        models.Landlord.objects.create(
+        Landlord.objects.create(
             individual=db['individual'][i],
             number=db['number'][i],
             email=db['email'][i],
@@ -107,3 +107,8 @@ def load_landlord(db):
             three_br=db['three_br'][i],
             notes=db['notes'][i])
         print('Added Private Landlord: ' + db['individual'][i])
+
+def purge():
+    Apartment.objects.all().delete()
+    Landlord.objects.all().delete()
+    print('Removed all Apartment and Landlord objects')

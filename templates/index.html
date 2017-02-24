@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-main page
+<div class="container">
+  <a href="{% url 'home:sign_out' %}">sign_out</a>
+</div>
 {% endblock %}

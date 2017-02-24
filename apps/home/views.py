@@ -18,3 +18,8 @@ def auth(request):
 @login_required
 def landing(request):
     return render(request, 'index.html')
+
+@login_required
+def sign_out(request):
+    logout(request)
+    return redirect('home:login')

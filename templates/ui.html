@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+  .spaced{
+    margin-top:20px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <!--Blank left margin-->
+    <div class="col-md-2">
+    </div>
+
+    <!--content-->
+    <div class="col-md-8">
+      <center>
+        <!--logo-->
+        <div class="row">
+          <img src="{% static 'img/logo.jpg' %}">
+        </div>
+
+        <!--form-->
+        <div class="row">
+          <form class="form-inline" action="#" method="POST">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Zip Code">
+            </div>
+            <div class="form-group">
+              <select class="form-control">
+                <option>Room</option>
+                <option>Studio</option>
+                <option>1 Bedroom</option>
+                <option>2 Bedrooms</option>
+                <option>3 Bedrooms</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+              <div class="input-group-addon">$</div>
+              <input type="text" class="form-control" id="exampleInputAmount" placeholder="Amount">
+              <div class="input-group-addon">.00</div>
+            </div>
+          </form>
+        </div>
+
+        <!--Pictures-->
+        <div class="row spaced">
+          <div class="col-md-6">
+            <a href="#" class="thumbnail">
+              <img src="http://salesbrewers.com/projectplasedev/wp-content/uploads/2015/09/Need-Housing.jpg" alt="img-responsive">
+            </a>
+          </div>
+          <div class="col-md-6">
+            <a href="#" class="thumbnail">
+              <img src="http://salesbrewers.com/projectplasedev/wp-content/uploads/2015/09/Need-Housing.jpg" alt="img-responsive">
+            </a>
+          </div>
+        </div>
+      </center>
+    </div>
+
+    <!--Blank right margin-->
+    <div class="col-md-2">
+    </div>
+  </div>
+</div>
+{% endblock %}

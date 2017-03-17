@@ -48,7 +48,7 @@
           </form>
         </div>
 
-        <!--Pictures-->
+        <!--Pictures, three per row-->
         <div class="row spaced">
           <div class="col-md-6">
             <a href="#" class="thumbnail">
@@ -69,4 +69,38 @@
     </div>
   </div>
 </div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#example-limit').multiselect({
+            onChange: function(option, checked) {
+                // Get selected options.
+                var selectedOptions = $('#example-limit option:selected');
+
+                if (selectedOptions.length >= 4) {
+                    // Disable all other checkboxes.
+                    var nonSelectedOptions = $('#example-limit option').filter(function() {
+                        return !$(this).is(':selected');
+                    });
+
+                    nonSelectedOptions.each(function() {
+                        var input = $('input[value="' + $(this).val() + '"]');
+                        input.prop('disabled', true);
+                        input.parent('li').addClass('disabled');
+                    });
+                }
+                else {
+                    // Enable all checkboxes.
+                    $('#example-limit option').each(function() {
+                        var input = $('input[value="' + $(this).val() + '"]');
+                        input.prop('disabled', false);
+                        input.parent('li').addClass('disabled');
+                    });
+                }
+            }
+        });
+    });
+</script>
 {% endblock %}

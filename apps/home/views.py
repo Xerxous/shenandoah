@@ -16,10 +16,6 @@ def auth(request):
     return render(request, 'login.html')
 
 @login_required
-def ui(request):
-    return render(request, 'ui.html')
-
-@login_required
 def landing(request):
     return render(request, 'index.html')
 

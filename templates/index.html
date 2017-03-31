@@ -1,8 +1,92 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/overlay.css' %}"/>
+<style>
+  .spaced{
+    margin-top:20px;
+  }
+  .scroll{
+    background-color: #E5AACC;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 500px;
+  }
+  .result{
+    width:100%;
+    margin: 0 auto;
+  }
+</style>
+{% endblock %}
 
 {% block content %}
+{% include 'navbar.html' %}
 <div class="container">
-  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3092.1611454211275!2d-76.62769904937052!3d39.19378697942547!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7fd44418e3df5%3A0x2aa7ae53afbe6700!2s353+Lindera+Ct%2C+Glen+Burnie%2C+MD+21061!5e0!3m2!1sen!2sus!4v1489077153173" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-  <a href="{% url 'home:sign_out' %}">sign_out</a>
+  <div class="row spaced">
+    <div class="col-md-6">
+      <a href="#" class="thumbnail">
+        <img src="{% static 'img/googlemaps.png' %}" alt="img-responsive">
+      </a>
+    </div>
+    <div class="col-md-6 scroll">
+      <ul class="list-group">
+        <div class="row result">
+          <a href="#" class="list-group-item spaced">
+            <h4 class="list-group-item-heading">Name</h4>
+            <p class="list-group-item-text">asdf</p>
+          </a>
+        </div>
+        <div class="row result">
+          <a href="#" class="list-group-item spaced">
+            <h4 class="list-group-item-heading">Name</h4>
+            <p class="list-group-item-text">asdf</p>
+          </a>
+        </div>
+        <div class="row result">
+          <a href="#" class="list-group-item spaced">
+            <h4 class="list-group-item-heading">Name</h4>
+            <p class="list-group-item-text">asdf</p>
+          </a>
+        </div>
+        <div class="row result">
+          <a href="#" class="list-group-item spaced">
+            <h4 class="list-group-item-heading">Name</h4>
+            <p class="list-group-item-text">asdf</p>
+          </a>
+        </div>
+        <div class="row result">
+          <a href="#" class="list-group-item spaced">
+            <h4 class="list-group-item-heading">Name</h4>
+            <p class="list-group-item-text">asdf</p>
+          </a>
+        </div>
+        <div class="row result">
+          <a href="#" class="list-group-item spaced">
+            <h4 class="list-group-item-heading">Name</h4>
+            <p class="list-group-item-text">asdf</p>
+          </a>
+        </div>
+        <div class="row result">
+          <a href="#" class="list-group-item spaced">
+            <h4 class="list-group-item-heading">Name</h4>
+            <p class="list-group-item-text">asdf</p>
+          </a>
+        </div>
+        <div class="row result">
+          <a href="#" class="list-group-item spaced">
+            <h4 class="list-group-item-heading">Name</h4>
+            <p class="list-group-item-text">asdf</p>
+          </a>
+        </div>
+      </ul>
+    </div>
+  </div>
 </div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+  window.jQuery || document.write('<script src="https://getbootstrap.com/assets/js/vendor/jquery.min.js"><\/script>')
+</script>
 {% endblock %}

@@ -1,7 +1,53 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/overlay.css' %}"/>
+<style>
+  .spaced{
+    margin-top:20px;
+  }
+  .scroll{
+    background-color: #E5AACC;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 500px;
+  }
+  .result{
+    width:100%;
+    margin: 0 auto;
+  }
+</style>
+{% endblock %}
 
 {% block content %}
+{% include 'navbar.html' %}
 <div class="container">
-  <a href="{% url 'home:sign_out' %}">sign_out</a>
+  <div class="row spaced">
+    <div class="col-md-6">
+      <a href="#" class="thumbnail">
+        <img src="{% static 'img/googlemaps.png' %}" alt="img-responsive">
+      </a>
+    </div>
+    <div class="col-md-6 scroll">
+      <ul class="list-group">
+        <div class="row result">
+          <a href="#" class="list-group-item spaced">
+            <h4 class="list-group-item-heading">Name</h4>
+            <p class="list-group-item-text">asdf</p>
+          </a>
+        </div>
+      </ul>
+    </div>
+  </div>
 </div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#multiselect').multiselect();
+});
+  window.jQuery || document.write('<script src="https://getbootstrap.com/assets/js/vendor/jquery.min.js"><\/script>')
+</script>
 {% endblock %}

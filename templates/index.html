@@ -45,6 +45,9 @@
 
 {% block js %}
 <script type="text/javascript">
+$(document).ready(function() {
+    $('#multiselect').multiselect();
+});
   window.jQuery || document.write('<script src="https://getbootstrap.com/assets/js/vendor/jquery.min.js"><\/script>')
 </script>
 {% endblock %}

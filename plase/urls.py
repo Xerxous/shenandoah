@@ -18,6 +18,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('apps.home.url', namespace='home')),
-    url(r'^search', include('apps.search.url', namespace='search'))
+    url(r'^', include('home.url', namespace='home'))
 ]

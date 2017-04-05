@@ -31,12 +31,17 @@
     </div>
     <div class="col-md-6 scroll">
       <ul class="list-group">
-        <div class="row result">
-          <a href="#" class="list-group-item spaced">
-            <h4 class="list-group-item-heading">Name</h4>
-            <p class="list-group-item-text">asdf</p>
-          </a>
-        </div>
+        {% for element in db %}
+          <div class="row result">
+            <a href="#" class="list-group-item spaced">
+              <h4 class="list-group-item-heading">{{ element.agency }}</h4>
+              <p class="list-group-item-text">{{ element.rooms }}</p>
+              <p class="list-group-item-text">{{ element.st_one }}</p>
+              <p class="list-group-item-text">{{ element.st_two }}</p>
+              <p class="list-group-item-text">{{ element.number }}</p>
+            </a>
+          </div>
+        {% endfor %}
       </ul>
     </div>
   </div>

@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/overlay.css' %}"/>
 <style>
   .spaced{
     margin-top:20px;
@@ -11,7 +10,7 @@
     background-color: #E5AACC;
     overflow-y: scroll;
     overflow-x: hidden;
-    height: 500px;
+    height: 450px;
   }
   .result{
     width:100%;
@@ -29,20 +28,39 @@
         <img src="{% static 'img/googlemaps.png' %}" alt="img-responsive">
       </a>
     </div>
-    <div class="col-md-6 scroll">
-      <ul class="list-group">
-        {% for element in db %}
-          <div class="row result">
-            <a href="#" class="list-group-item spaced">
-              <h4 class="list-group-item-heading">{{ element.agency }}</h4>
-              <p class="list-group-item-text">{{ element.rooms }}</p>
-              <p class="list-group-item-text">{{ element.st_one }}</p>
-              <p class="list-group-item-text">{{ element.st_two }}</p>
-              <p class="list-group-item-text">{{ element.number }}</p>
-            </a>
-          </div>
-        {% endfor %}
+    <div class="col-md-6">
+      <ul class="nav nav-tabs nav-justified tabs">
+        <li role="presentation" class="active" id="apt-tab"><a onclick="display('apt','ll')">Apartments</a></li>
+        <li role="presentation" id="ll-tab"><a onclick="display('ll','apt')">Landlords</a></li>
       </ul>
+      <div class="scroll">
+        <ul class="list-group" id="apt">
+          {% for element in apt %}
+            <div class="row result">
+              <a href="{% url 'home:details' element.id %}" class="list-group-item spaced">
+                <h4 class="list-group-item-heading">{{ element.agency }}</h4>
+                <p class="list-group-item-text">{{ element.rooms }}</p>
+                <p class="list-group-item-text">{{ element.st_one }}</p>
+                <p class="list-group-item-text">{{ element.st_two }}</p>
+                <p class="list-group-item-text">{{ element.number }}</p>
+              </a>
+            </div>
+          {% endfor %}
+        </ul>
+        <ul class="list-group" id="ll">
+          {% for element in ll %}
+            <div class="row result">
+              <a href="{% url 'home:details' element.id %}" class="list-group-item spaced">
+                <h4 class="list-group-item-heading">{{ element.individual }}</h4>
+                <p class="list-group-item-text">{{ element.rooms }}</p>
+                <p class="list-group-item-text">{{ element.st_one }}</p>
+                <p class="list-group-item-text">{{ element.st_two }}</p>
+                <p class="list-group-item-text">{{ element.number }}</p>
+              </a>
+            </div>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
   </div>
 </div>
@@ -50,9 +68,36 @@
 
 {% block js %}
 <script type="text/javascript">
-$(document).ready(function() {
-    $('#multiselect').multiselect();
-});
-  window.jQuery || document.write('<script src="https://getbootstrap.com/assets/js/vendor/jquery.min.js"><\/script>')
+  $(document).ready(function() {
+      $('#multiselect').multiselect();
+      document.getElementById("apt").style.display = "";
+      document.getElementById("ll").style.display = "none";
+      $(".num-input").keydown(function(e) {
+          if($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110]) !== -1 ||
+            (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+            (e.keyCode == 67 && (e.ctrlKey === true || e.metaKey === true)) ||
+            (e.keyCode == 88 && (e.ctrlKey === true || e.metaKey === true)) ||
+            (e.keyCode >= 35 && e.keyCode <= 39)){
+              return;
+          }
+          if((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)){
+              e.preventDefault();
+          }
+      });
+  });
+
+  $(document).ready(function() {
+      document.getElementById("apt").style.display = "";
+      document.getElementById("ll").style.display = "none";
+  });
+
+  function display(show, hide) {
+    document.getElementById(show).style.display = "";
+    document.getElementById(hide).style.display = "none";
+    document.getElementById(show + "-tab").className = "active";
+    document.getElementById(hide + "-tab").className = "";
+  }
+
+
 </script>
 {% endblock %}

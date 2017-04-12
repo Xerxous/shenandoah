@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
+from itertools import chain
+from .models import Apartment, Landlord
 
 def auth(request):
     if request.method == 'POST':
@@ -16,12 +18,19 @@ def auth(request):
     return render(request, 'login.html')
 
 @login_required
-def ui(request):
-    return render(request, 'ui.html')
+def landing(request):
+    context = dict()
+    if request.method == 'GET':
+        context['apt'] = Apartment.objects.all()
+        context['ll'] = Landlord.objects.all()
+    elif request.method == 'POST':
+        print(request.POST)
+    return render(request, 'index.html', context)
 
 @login_required
-def landing(request):
-    return render(request, 'index.html')
+def detail(request, id):
+    return render(request, 'details.html')
+
 
 @login_required
 def sign_out(request):

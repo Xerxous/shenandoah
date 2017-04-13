@@ -3,6 +3,10 @@
 
 {% block css %}
 <style>
+  .glyphs{
+    color: red;
+    font-weight: bold;
+  }
   .spaced{
     margin-top:20px;
   }
@@ -12,8 +16,15 @@
     overflow-x: hidden;
     height: 450px;
   }
+  .thumbnail {
+    border: 0 none;
+    box-shadow: none;
+  }
+  .noresults-message{
+    margin: 17px 0;
+  }
   .result{
-    width:100%;
+    width: 95%;
     margin: 0 auto;
   }
 </style>
@@ -22,9 +33,12 @@
 {% block content %}
 {% include 'navbar.html' %}
 <div class="container">
+  <div class="alert alert-info">
+    <strong>Database:</strong> {{ message }}
+  </div>
   <div class="row spaced">
     <div class="col-md-6">
-      <a href="#" class="thumbnail">
+      <a class="thumbnail">
         <img src="{% static 'img/googlemaps.png' %}" alt="img-responsive">
       </a>
     </div>
@@ -35,30 +49,93 @@
       </ul>
       <div class="scroll">
         <ul class="list-group" id="apt">
-          {% for element in apt %}
+          {% if not apt|length %}
             <div class="row result">
-              <a href="{% url 'home:details' element.id %}" class="list-group-item spaced">
-                <h4 class="list-group-item-heading">{{ element.agency }}</h4>
-                <p class="list-group-item-text">{{ element.rooms }}</p>
-                <p class="list-group-item-text">{{ element.st_one }}</p>
-                <p class="list-group-item-text">{{ element.st_two }}</p>
-                <p class="list-group-item-text">{{ element.number }}</p>
-              </a>
+              <div class="list-group-item spaced">
+                <h4 class="list-group-item-heading">Search Results:</h4>
+                <div class="row">
+                  <div class="col-md-2">
+                    <div class="thumbnail">
+                      <img src="{% static 'img/noresults.png' %}" alt="img-responsive">
+                    </div>
+                  </div>
+                  <div class="col-md-10 noresults-message">
+                    <p class="list-group-item-text">Sorry. No results were found. Please try a different search.</p>
+                  </div>
+                </div>
+              </div>
             </div>
-          {% endfor %}
+          {% else %}
+            {% for element in apt %}
+              <div class="row result">
+                <a href="{% url 'home:details' element.id %}" class="list-group-item spaced">
+                  <h4 class="list-group-item-heading">{{ element.entity }}</h4>
+                  <p class="list-group-item-text">{{ element.st_one }}</p>
+                  <p class="list-group-item-text">{{ element.st_two }}</p>
+                  <p class="list-group-item-text">{{ element.number }}</p>
+                  <p class="list-group-item-text">Price:
+                    {% if element.low == 0 and element.high == 0 %}
+                      {{ element.cost_notes }}
+                    {% else %}
+                      ${{ element.low }} - ${{ element.high }}
+                    {% endif %}
+                  </p>
+                  <div class="row container glyphs">
+                    {% if element.rooms %}&alpha;{% endif %}
+                    {% if element.one_br %}&beta;{% endif %}
+                    {% if element.two_br %}&gamma;{% endif %}
+                    {% if element.three_br %}&delta;{% endif %}
+                    {% if element.studio %}&epsilon;{% endif %}
+                  </div>
+                </a>
+              </div>
+            {% endfor %}
+          {% endif %}
         </ul>
         <ul class="list-group" id="ll">
-          {% for element in ll %}
-            <div class="row result">
-              <a href="{% url 'home:details' element.id %}" class="list-group-item spaced">
-                <h4 class="list-group-item-heading">{{ element.individual }}</h4>
-                <p class="list-group-item-text">{{ element.rooms }}</p>
-                <p class="list-group-item-text">{{ element.st_one }}</p>
-                <p class="list-group-item-text">{{ element.st_two }}</p>
-                <p class="list-group-item-text">{{ element.number }}</p>
-              </a>
+          <ul class="list-group" id="apt">
+            {% if not ll|length %}
+              <div class="row result">
+                <div class="list-group-item spaced">
+                  <h4 class="list-group-item-heading">Search Results:</h4>
+                  <div class="row">
+                    <div class="col-md-2">
+                      <div class="thumbnail">
+                        <img src="{% static 'img/noresults.png' %}" alt="img-responsive">
+                      </div>
+                    </div>
+                    <div class="col-md-10 noresults-message">
+                      <p class="list-group-item-text">Sorry. No results were found. Please try a different search.</p>
+                    </div>
+                  </div>
+                </div>
             </div>
-          {% endfor %}
+            {% else %}
+              {% for element in ll %}
+                <div class="row result">
+                  <a href="{% url 'home:details' element.id %}" class="list-group-item spaced">
+                    <h4 class="list-group-item-heading">{{ element.entity }}</h4>
+                    <p class="list-group-item-text">{{ element.st_one }}</p>
+                    <p class="list-group-item-text">{{ element.st_two }}</p>
+                    <p class="list-group-item-text">{{ element.number }}</p>
+                    <p class="list-group-item-text">Price:
+                      {% if element.low == 0 and element.high == 0 %}
+                        {{ element.cost_notes }}
+                      {% else %}
+                        ${{ element.low }} - ${{ element.high }}
+                      {% endif %}
+                    </p>
+                    <div class="row container glyphs">
+                      {% if element.rooms %}&alpha;{% endif %}
+                      {% if element.one_br %}&beta;{% endif %}
+                      {% if element.two_br %}&gamma;{% endif %}
+                      {% if element.three_br %}&delta;{% endif %}
+                      {% if element.studio %}&epsilon;{% endif %}
+                    </div>
+                  </a>
+                </div>
+              {% endfor %}
+            {% endif %}
         </ul>
       </div>
     </div>
@@ -97,7 +174,6 @@
     document.getElementById(show + "-tab").className = "active";
     document.getElementById(hide + "-tab").className = "";
   }
-
 
 </script>
 {% endblock %}

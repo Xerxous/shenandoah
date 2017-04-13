@@ -14,7 +14,7 @@
     background-color: #E5AACC;
     overflow-y: scroll;
     overflow-x: hidden;
-    height: 450px;
+    height: 540px;
   }
   .thumbnail {
     border: 0 none;
@@ -33,14 +33,32 @@
 {% block content %}
 {% include 'navbar.html' %}
 <div class="container">
-  <div class="alert alert-info">
-    <strong>Database:</strong> {{ message }}
-  </div>
+  {% if error_msg %}
+    <div class="alert alert-danger">
+      <strong>Search Error:</strong><br/>
+      <ul>
+        {% for msg in error_msg %}
+          <li>{{ msg }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% else %}
+    <div class="alert alert-info">
+      <strong>Database Query:</strong>
+      {% if not feedback|length %}
+        Nothing has been searched. Showing all results in the database
+      {% endif %}
+      {% for element in feedback %}
+        <li>{{ element }}</li>
+      {% endfor %}
+    </div>
+  {% endif %}
   <div class="row spaced">
     <div class="col-md-6">
-      <a class="thumbnail">
-        <img src="{% static 'img/googlemaps.png' %}" alt="img-responsive">
+      <a href="http://projectplase.org/wordpress3/" class="thumbnail">
+        <img src="{% static 'img/logo.jpg' %}" alt="img-responsive">
       </a>
+      <iframe width="550" height="315" src="https://www.youtube.com/embed/ySSO9Uvg9Yc" frameborder="0" allowfullscreen></iframe>
     </div>
     <div class="col-md-6">
       <ul class="nav nav-tabs nav-justified tabs">
@@ -73,6 +91,8 @@
                   <p class="list-group-item-text">{{ element.st_one }}</p>
                   <p class="list-group-item-text">{{ element.st_two }}</p>
                   <p class="list-group-item-text">{{ element.number }}</p>
+                  <p class="list-group-item-text">{{ element.area }}</p>
+                  <p class="list-group-item-text">{{ element.zipcode }}</p>
                   <p class="list-group-item-text">Price:
                     {% if element.low == 0 and element.high == 0 %}
                       {{ element.cost_notes }}
@@ -118,6 +138,8 @@
                     <p class="list-group-item-text">{{ element.st_one }}</p>
                     <p class="list-group-item-text">{{ element.st_two }}</p>
                     <p class="list-group-item-text">{{ element.number }}</p>
+                    <p class="list-group-item-text">{{ element.city }}</p>
+                    <p class="list-group-item-text">{{ element.zipcode }}</p>
                     <p class="list-group-item-text">Price:
                       {% if element.low == 0 and element.high == 0 %}
                         {{ element.cost_notes }}

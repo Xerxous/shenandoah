@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
 from itertools import chain
 from .models import Apartment, Landlord
-from .search import search
+from .search import search, verify
 
 def auth(request):
     if request.method == 'POST':
@@ -26,11 +26,17 @@ def landing(request):
     if request.method == 'GET':
         context['apt'] = apt.all()
         context['ll'] = ll.all()
-        context['message'] = 'Showing all results in the database'
     elif request.method == 'POST':
-        #FIELDS: zip, low, high, name, room[], area
-        context['apt'] = search(apt, request.POST, 'apt')
-        context['ll'] = search(ll, request.POST, 'll')
+        print(request.POST)
+        error_msg = verify(request.POST)
+        if error_msg:
+            context['error_msg'] = error_msg
+        else:
+            #FIELDS: zip, low, high, name, room[], area
+            apt_results = search(apt, request.POST, 'apt')
+            context['apt'] = apt_results['queryset']
+            context['ll'] = search(ll, request.POST, 'll')['queryset']
+            context['feedback'] = apt_results['feedback']
     return render(request, 'index.html', context)
 
 @login_required

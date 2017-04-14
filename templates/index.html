@@ -47,13 +47,15 @@
     </div>
   {% else %}
     <div class="alert alert-info">
-      <strong>Database Query:</strong>
+      <strong>Database Query:</strong>  
       {% if not feedback|length %}
         Nothing has been searched. Showing all results in the database
       {% endif %}
+      <ul>
       {% for element in feedback %}
         <li>{{ element }}</li>
       {% endfor %}
+      </ul>
     </div>
   {% endif %}
   <div class="row spaced">

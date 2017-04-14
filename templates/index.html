@@ -4,8 +4,11 @@
 {% block css %}
 <style>
   .glyphs{
-    color: red;
+    font-family: monospace;
     font-weight: bold;
+    position: absolute;
+    top: 5px;
+    right: 10px;
   }
   .spaced{
     margin-top:20px;
@@ -58,7 +61,7 @@
       <a href="http://projectplase.org/wordpress3/" class="thumbnail">
         <img src="{% static 'img/logo.jpg' %}" alt="img-responsive">
       </a>
-      <iframe width="550" height="315" src="https://www.youtube.com/embed/ySSO9Uvg9Yc" frameborder="0" allowfullscreen></iframe>
+      <iframe class="iframe hidden-xs hidden-sm" width="100%" src="https://www.youtube.com/embed/3KlTjYKuVIU" frameborder="0" allowfullscreen></iframe>
     </div>
     <div class="col-md-6">
       <ul class="nav nav-tabs nav-justified tabs">
@@ -86,27 +89,24 @@
           {% else %}
             {% for element in apt %}
               <div class="row result">
-                <a href="{% url 'home:details' element.id %}" class="list-group-item spaced">
+                <a href="{% url 'home:apt_detail' element.id %}" class="list-group-item spaced">
                   <h4 class="list-group-item-heading">{{ element.entity }}</h4>
-                  <p class="list-group-item-text">{{ element.st_one }}</p>
-                  <p class="list-group-item-text">{{ element.st_two }}</p>
-                  <p class="list-group-item-text">{{ element.number }}</p>
-                  <p class="list-group-item-text">{{ element.area }}</p>
-                  <p class="list-group-item-text">{{ element.zipcode }}</p>
-                  <p class="list-group-item-text">Price:
+                  <p class="list-group-item-text">{{ element.zipcode }} {{ element.area }}</p>
+                  <div class="glyphs">
+                    {% if element.rooms %}R{% endif %}
+                    {% if element.one_br %}1{% endif %}
+                    {% if element.two_br %}2{% endif %}
+                    {% if element.three_br %}3{% endif %}
+                    {% if element.studio %}S{% endif %}
+                  </div>
+                  <h4><span class="label label-success">
                     {% if element.low == 0 and element.high == 0 %}
                       {{ element.cost_notes }}
                     {% else %}
                       ${{ element.low }} - ${{ element.high }}
                     {% endif %}
-                  </p>
-                  <div class="row container glyphs">
-                    {% if element.rooms %}&alpha;{% endif %}
-                    {% if element.one_br %}&beta;{% endif %}
-                    {% if element.two_br %}&gamma;{% endif %}
-                    {% if element.three_br %}&delta;{% endif %}
-                    {% if element.studio %}&epsilon;{% endif %}
-                  </div>
+                  </span></h4>
+                  <a href="#"><span class="label label-danger pull-right">X</span></a>
                 </a>
               </div>
             {% endfor %}
@@ -133,27 +133,24 @@
             {% else %}
               {% for element in ll %}
                 <div class="row result">
-                  <a href="{% url 'home:details' element.id %}" class="list-group-item spaced">
+                  <a href="{% url 'home:ll_detail' element.id %}" class="list-group-item spaced">
                     <h4 class="list-group-item-heading">{{ element.entity }}</h4>
-                    <p class="list-group-item-text">{{ element.st_one }}</p>
-                    <p class="list-group-item-text">{{ element.st_two }}</p>
-                    <p class="list-group-item-text">{{ element.number }}</p>
-                    <p class="list-group-item-text">{{ element.city }}</p>
-                    <p class="list-group-item-text">{{ element.zipcode }}</p>
-                    <p class="list-group-item-text">Price:
+                    <p class="list-group-item-text">{{ element.zipcode }} {{ element.city }}</p>
+                    <div class="glyphs">
+                      {% if element.rooms %}R{% endif %}
+                      {% if element.one_br %}1{% endif %}
+                      {% if element.two_br %}2{% endif %}
+                      {% if element.three_br %}3{% endif %}
+                      {% if element.studio %}S{% endif %}
+                    </div>
+                    <h4><span class="label label-success">
                       {% if element.low == 0 and element.high == 0 %}
                         {{ element.cost_notes }}
                       {% else %}
                         ${{ element.low }} - ${{ element.high }}
                       {% endif %}
-                    </p>
-                    <div class="row container glyphs">
-                      {% if element.rooms %}&alpha;{% endif %}
-                      {% if element.one_br %}&beta;{% endif %}
-                      {% if element.two_br %}&gamma;{% endif %}
-                      {% if element.three_br %}&delta;{% endif %}
-                      {% if element.studio %}&epsilon;{% endif %}
-                    </div>
+                    </span></h4>
+                    <a href="#"><span class="label label-danger pull-right">X</span></a>
                   </a>
                 </div>
               {% endfor %}
@@ -169,6 +166,7 @@
 <script type="text/javascript">
   $(document).ready(function() {
       $('#multiselect').multiselect();
+      $('.iframe').css('height', $(".scroll").height()/2+'px');
       document.getElementById("apt").style.display = "";
       document.getElementById("ll").style.display = "none";
       $(".num-input").keydown(function(e) {
@@ -183,11 +181,6 @@
               e.preventDefault();
           }
       });
-  });
-
-  $(document).ready(function() {
-      document.getElementById("apt").style.display = "";
-      document.getElementById("ll").style.display = "none";
   });
 
   function display(show, hide) {

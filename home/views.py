@@ -40,9 +40,16 @@ def landing(request):
     return render(request, 'index.html', context)
 
 @login_required
-def detail(request, id):
-    return render(request, 'details.html')
+def apt_detail(request, id):
+    context = dict()
+    context['obj'] = Apartment.objects.get(id=id)
+    return render(request, 'details.html', context)
 
+@login_required
+def ll_detail(request, id):
+    context = dict()
+    context['obj'] = Landlord.objects.get(id=id)
+    return render(request, 'details.html', context)
 
 @login_required
 def sign_out(request):

@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Apartment(models.Model):
-    agency = models.CharField(max_length=50, default='', blank=False)
+    entity = models.CharField(max_length=50, default='', blank=False)
     number = models.CharField(max_length=12, default='', blank=False) # Phone Number including dashes
     email = models.CharField(max_length=20, default='', blank=True) #optional
     building = models.CharField(max_length=50, default='', blank=True) #optional
@@ -22,16 +22,16 @@ class Apartment(models.Model):
     notes = models.CharField(max_length=500, default='', blank=True) #optional
 
     def __unicode__(self):
-        return self.agency
+        return self.entity
 
     def __str__(self):
-        return self.agency
+        return self.entity
 
     class Meta:
         verbose_name_plural = "Apartments"
 
 class Landlord(models.Model):
-    individual = models.CharField(max_length=50, default='', blank=False)
+    entity = models.CharField(max_length=50, default='', blank=False)
     number = models.CharField(max_length=12, default='', blank=False) # Phone Number including dashes
     email = models.CharField(max_length=20, default='', blank=True) #optional
     st_one = models.CharField(max_length=50, default='', blank=True) #optional
@@ -49,10 +49,10 @@ class Landlord(models.Model):
     notes = models.CharField(max_length=500, default='', blank=True) #optional
 
     def __unicode__(self):
-        return self.individual + ': ' + self.st_one
+        return self.entity + ': ' + self.st_one
 
     def __str__(self):
-        return self.individual + ': ' + self.st_one
+        return self.entity + ': ' + self.st_one
 
     class Meta:
         verbose_name_plural = "Landlords"

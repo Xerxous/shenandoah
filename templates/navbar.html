@@ -11,36 +11,38 @@
       <a class="navbar-brand" href="{% url 'home:index'%}">Project PLASE</a>
     </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <form class="navbar-form navbar-left">
+      <form class="navbar-form navbar-left" action="{% url 'home:index' %}" method="post">
+        {% csrf_token %}
         <div class="form-group">
-          <select class="form-control">
-            <option value="none">None</option>
-            <option value="city">Baltimore City</option>
-            <option value="county">Baltimore County</option>
+          <select class="form-control" name="area">
+            <option value="none">Area</option>
+            <option value="Baltimore City">Baltimore City</option>
+            <option value="Baltimore County">Baltimore County</option>
           </select>
-          <select id="multiselect" multiple="multiple">
-              <option value="room">Room</option>
-              <option value="studio">Studio</option>
-              <option value="1br">1BR</option>
-              <option value="2br">2BR</option>
-              <option value="3br">3BR</option>
+          <select id="multiselect" multiple="multiple" name="res">
+            <option value="rooms">Room:R</option>
+            <option value="one_br">1BR:1</option>
+            <option value="two_br">2BR:2</option>
+            <option value="three_br">3BR:3</option>
+            <option value="studio">Studio:S</option>
           </select>
+          <input type="checkbox" class="form-control" name="strict" value="strict">
           <div class="input-group">
             <div class="input-group-addon">$</div>
-            <input type="text" class="form-control" size="4" placeholder="Low">
+            <input type="text" class="form-control num-input" size="7" maxlength="5" placeholder="Low" name="low">
             <div class="input-group-addon">-</div>
-            <input type="text" class="form-control" size="4" placeholder="High">
+            <input type="text" class="form-control num-input" size="7" maxlength="5" placeholder="High" name="high">
           </div>
-          <input type="text" class="form-control" size="20" placeholder="Name">
-          <input type="text" class="form-control" size="7"  maxlength="5" placeholder="Zip code">
+          <input type="checkbox" class="form-control" name="exception" value="exception">
+          <input type="text" class="form-control" size="15" placeholder="Name" name="name">
+          <input type="text" class="form-control num-input" size="7"  maxlength="5" placeholder="Zip code" name="zip">
         </div>
         <button type="submit" class="btn btn-default">Search</button>
         <span class="glyphicon glyphicon-question-sign"></span>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="{% url 'home:sign_out'%}">Logout</a></li>
+        <li><a href="{% url 'home:sign_out'%}">Logout</a></li>
       </ul>
     </div>
   </div>

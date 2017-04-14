@@ -2,8 +2,14 @@
 {% load static %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/overlay.css' %}"/>
 <style>
+  .glyphs{
+    font-family: monospace;
+    font-weight: bold;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+  }
   .spaced{
     margin-top:20px;
   }
@@ -11,10 +17,17 @@
     background-color: #E5AACC;
     overflow-y: scroll;
     overflow-x: hidden;
-    height: 500px;
+    height: 540px;
+  }
+  .thumbnail {
+    border: 0 none;
+    box-shadow: none;
+  }
+  .noresults-message{
+    margin: 17px 0;
   }
   .result{
-    width:100%;
+    width: 95%;
     margin: 0 auto;
   }
 </style>
@@ -23,21 +36,129 @@
 {% block content %}
 {% include 'navbar.html' %}
 <div class="container">
+  {% if error_msg %}
+    <div class="alert alert-danger">
+      <strong>Search Error:</strong><br/>
+      <ul>
+        {% for msg in error_msg %}
+          <li>{{ msg }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% else %}
+    <div class="alert alert-info">
+      <strong>Database Query:</strong>  
+      {% if not feedback|length %}
+        Nothing has been searched. Showing all results in the database
+      {% endif %}
+      <ul>
+      {% for element in feedback %}
+        <li>{{ element }}</li>
+      {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
   <div class="row spaced">
     <div class="col-md-6">
-      <a href="#" class="thumbnail">
-        <img src="{% static 'img/googlemaps.png' %}" alt="img-responsive">
+      <a href="http://projectplase.org/wordpress3/" class="thumbnail">
+        <img src="{% static 'img/logo.jpg' %}" alt="img-responsive">
       </a>
+      <iframe class="iframe hidden-xs hidden-sm" width="100%" src="https://www.youtube.com/embed/3KlTjYKuVIU" frameborder="0" allowfullscreen></iframe>
     </div>
-    <div class="col-md-6 scroll">
-      <ul class="list-group">
-        <div class="row result">
-          <a href="#" class="list-group-item spaced">
-            <h4 class="list-group-item-heading">Name</h4>
-            <p class="list-group-item-text">asdf</p>
-          </a>
-        </div>
+    <div class="col-md-6">
+      <ul class="nav nav-tabs nav-justified tabs">
+        <li role="presentation" class="active" id="apt-tab"><a onclick="display('apt','ll')">Apartments</a></li>
+        <li role="presentation" id="ll-tab"><a onclick="display('ll','apt')">Landlords</a></li>
       </ul>
+      <div class="scroll">
+        <ul class="list-group" id="apt">
+          {% if not apt|length %}
+            <div class="row result">
+              <div class="list-group-item spaced">
+                <h4 class="list-group-item-heading">Search Results:</h4>
+                <div class="row">
+                  <div class="col-md-2">
+                    <div class="thumbnail">
+                      <img src="{% static 'img/noresults.png' %}" alt="img-responsive">
+                    </div>
+                  </div>
+                  <div class="col-md-10 noresults-message">
+                    <p class="list-group-item-text">Sorry. No results were found. Please try a different search.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% else %}
+            {% for element in apt %}
+              <div class="row result">
+                <a href="{% url 'home:apt_detail' element.id %}" class="list-group-item spaced">
+                  <h4 class="list-group-item-heading">{{ element.entity }}</h4>
+                  <p class="list-group-item-text">{{ element.zipcode }} {{ element.area }}</p>
+                  <div class="glyphs">
+                    {% if element.rooms %}R{% endif %}
+                    {% if element.one_br %}1{% endif %}
+                    {% if element.two_br %}2{% endif %}
+                    {% if element.three_br %}3{% endif %}
+                    {% if element.studio %}S{% endif %}
+                  </div>
+                  <h4><span class="label label-success">
+                    {% if element.low == 0 and element.high == 0 %}
+                      {{ element.cost_notes }}
+                    {% else %}
+                      ${{ element.low }} - ${{ element.high }}
+                    {% endif %}
+                  </span></h4>
+                  <a href="#"><span class="label label-danger pull-right">X</span></a>
+                </a>
+              </div>
+            {% endfor %}
+          {% endif %}
+        </ul>
+        <ul class="list-group" id="ll">
+          <ul class="list-group" id="apt">
+            {% if not ll|length %}
+              <div class="row result">
+                <div class="list-group-item spaced">
+                  <h4 class="list-group-item-heading">Search Results:</h4>
+                  <div class="row">
+                    <div class="col-md-2">
+                      <div class="thumbnail">
+                        <img src="{% static 'img/noresults.png' %}" alt="img-responsive">
+                      </div>
+                    </div>
+                    <div class="col-md-10 noresults-message">
+                      <p class="list-group-item-text">Sorry. No results were found. Please try a different search.</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            {% else %}
+              {% for element in ll %}
+                <div class="row result">
+                  <a href="{% url 'home:ll_detail' element.id %}" class="list-group-item spaced">
+                    <h4 class="list-group-item-heading">{{ element.entity }}</h4>
+                    <p class="list-group-item-text">{{ element.zipcode }} {{ element.city }}</p>
+                    <div class="glyphs">
+                      {% if element.rooms %}R{% endif %}
+                      {% if element.one_br %}1{% endif %}
+                      {% if element.two_br %}2{% endif %}
+                      {% if element.three_br %}3{% endif %}
+                      {% if element.studio %}S{% endif %}
+                    </div>
+                    <h4><span class="label label-success">
+                      {% if element.low == 0 and element.high == 0 %}
+                        {{ element.cost_notes }}
+                      {% else %}
+                        ${{ element.low }} - ${{ element.high }}
+                      {% endif %}
+                    </span></h4>
+                    <a href="#"><span class="label label-danger pull-right">X</span></a>
+                  </a>
+                </div>
+              {% endfor %}
+            {% endif %}
+        </ul>
+      </div>
     </div>
   </div>
 </div>
@@ -45,9 +166,31 @@
 
 {% block js %}
 <script type="text/javascript">
-$(document).ready(function() {
-    $('#multiselect').multiselect();
-});
-  window.jQuery || document.write('<script src="https://getbootstrap.com/assets/js/vendor/jquery.min.js"><\/script>')
+  $(document).ready(function() {
+      $('#multiselect').multiselect();
+      $('.iframe').css('height', $(".scroll").height()/2+'px');
+      document.getElementById("apt").style.display = "";
+      document.getElementById("ll").style.display = "none";
+      $(".num-input").keydown(function(e) {
+          if($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110]) !== -1 ||
+            (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+            (e.keyCode == 67 && (e.ctrlKey === true || e.metaKey === true)) ||
+            (e.keyCode == 88 && (e.ctrlKey === true || e.metaKey === true)) ||
+            (e.keyCode >= 35 && e.keyCode <= 39)){
+              return;
+          }
+          if((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)){
+              e.preventDefault();
+          }
+      });
+  });
+
+  function display(show, hide) {
+    document.getElementById(show).style.display = "";
+    document.getElementById(hide).style.display = "none";
+    document.getElementById(show + "-tab").className = "active";
+    document.getElementById(hide + "-tab").className = "";
+  }
+
 </script>
 {% endblock %}

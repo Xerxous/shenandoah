@@ -5,7 +5,6 @@ class Apartment(models.Model):
     entity = models.CharField(max_length=50, default='', blank=False)
     number = models.CharField(max_length=12, default='', blank=False) # Phone Number including dashes
     email = models.CharField(max_length=20, default='', blank=True) #optional
-    building = models.CharField(max_length=50, default='', blank=True) #optional
     st_one = models.CharField(max_length=50, default='', blank=False)
     st_two = models.CharField(max_length=50, default='', blank=True) #optional
     area = models.CharField(max_length=20, default='', blank=False)

@@ -6,6 +6,9 @@
   .details{
     border-radius: 5px;
   }
+  .h-space{
+    margin-left: 5px;
+  }
 </style>
 {% endblock %}
 
@@ -14,9 +17,31 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6 jumbotron details">
-      <button type="button" class="btn btn-default btn-lg pull-right">
-        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
-      </button>
+      <div class="row">
+        <div class="col-md-6">
+        </div>
+        <div class="col-md-2">
+          {% if obj_type %}
+            <button type="button" onclick="location.href='{% url 'home:apt_delete' obj.id %}';" class="btn btn-danger btn-lg">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
+            </button>
+          {% else %}
+            <button type="button" onclick="location.href='{% url 'home:ll_delete' obj.id %}';" class="btn btn-danger btn-lg">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
+            </button>
+          {% endif %}
+        </div>
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-2">
+          <button type="button" class="btn btn-primary btn-lg">
+            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+          </button>
+        </div>
+        <div class="col-md-1">
+        </div>
+      </div>
+
       <h1>{{ obj.entity }}</h1>
       <hr/>
       <p>Contact Information: {{ obj.number }}</p>

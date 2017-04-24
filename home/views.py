@@ -43,13 +43,29 @@ def landing(request):
 def apt_detail(request, id):
     context = dict()
     context['obj'] = Apartment.objects.get(id=id)
+    context['obj_type'] = 1
     return render(request, 'details.html', context)
 
 @login_required
 def ll_detail(request, id):
     context = dict()
     context['obj'] = Landlord.objects.get(id=id)
+    context['obj_type'] = 0
     return render(request, 'details.html', context)
+
+@login_required
+def apt_delete(request, id):
+    Apartment.objects.get(id=id).delete()
+    return redirect('home:index')
+
+@login_required
+def ll_delete(request, id):
+    Landlord.objects.get(id=id).delete()
+    return redirect('home:index')
+
+@login_required
+def create(request):
+    return render(request, 'form.html')
 
 @login_required
 def sign_out(request):

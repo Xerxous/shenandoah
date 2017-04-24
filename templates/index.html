@@ -47,7 +47,7 @@
     </div>
   {% else %}
     <div class="alert alert-info">
-      <strong>Database Query:</strong>  
+      <strong>Database Query:</strong>
       {% if not feedback|length %}
         Nothing has been searched. Showing all results in the database
       {% endif %}
@@ -108,7 +108,7 @@
                       ${{ element.low }} - ${{ element.high }}
                     {% endif %}
                   </span></h4>
-                  <a href="#"><span class="label label-danger pull-right">X</span></a>
+                  <a href="{% url 'home:apt_delete' element.id %}"><span class="label label-danger pull-right">X</span></a>
                 </a>
               </div>
             {% endfor %}
@@ -152,7 +152,7 @@
                         ${{ element.low }} - ${{ element.high }}
                       {% endif %}
                     </span></h4>
-                    <a href="#"><span class="label label-danger pull-right">X</span></a>
+                    <a href="{% url 'home:ll_delete' element.id %}"><span class="label label-danger pull-right">X</span></a>
                   </a>
                 </div>
               {% endfor %}

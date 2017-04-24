@@ -3,9 +3,8 @@
 
 {% block css %}
 <style>
-  .card{
+  .details{
     border-radius: 5px;
-    height: 550px;
   }
 </style>
 {% endblock %}
@@ -14,38 +13,30 @@
 {% include 'navbar.html' %}
 <div class="container">
   <div class="row">
-    <div class="col-md-6 jumbotron card">
-      <div id="face">
-        <button type="button" class="btn btn-default btn-lg pull-right">
-          <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
-        </button>
-        <h1>{{ obj.entity }}</h1>
-        <hr/>
-        <p>Contact Information: {{ obj.number }}</p>
-        <p><a class="btn btn-primary btn-lg pull-right" onclick="display('back','face')" role="button">Details >></a></p>
-      </div>
-      <div id="back">
-        <h2>Additional Details</h2>
-        <hr/>
-        <p>Address: {{ obj.st_one }}</p>
-        <p>{{ obj.st_two }}</p>
-        <p>Area: {{ obj.city }} {{ obj.area }}</p>
-        <p>Zipcode: {{ obj.zipcode }}</p>
-        <p>Price:
-          {% if obj.low == 0 and obj.high == 0 %}
-            {{ obj.cost_notes }}
-          {% else %}
-            ${{ obj.low }} - ${{ obj.high }}
-          {% endif %}
-        </p>
-        <p>Residency: {% if obj.rooms %}Rooms {% endif %}
-                      {% if obj.one_br %}1BR{% endif %}
-                      {% if obj.two_br %}2BR{% endif %}
-                      {% if obj.three_br %}3BR{% endif %}
-                      {% if obj.studio %}Studio{% endif %}
-        </p>
-        <p><a class="btn btn-primary btn-lg pull-right" onclick="display('face','back')" role="button"><< Back</a></p>
-      </div>
+    <div class="col-md-6 jumbotron details">
+      <button type="button" class="btn btn-default btn-lg pull-right">
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+      </button>
+      <h1>{{ obj.entity }}</h1>
+      <hr/>
+      <p>Contact Information: {{ obj.number }}</p>
+      <p>Address: {{ obj.st_one }}</p>
+      <p>{{ obj.st_two }}</p>
+      <p>Area: {{ obj.city }} {{ obj.area }}</p>
+      <p>Zipcode: {{ obj.zipcode }}</p>
+      <p>Price:
+        {% if obj.low == 0 and obj.high == 0 %}
+          {{ obj.cost_notes }}
+        {% else %}
+          ${{ obj.low }} - ${{ obj.high }}
+        {% endif %}
+      </p>
+      <p>Residency: {% if obj.rooms %}Rooms {% endif %}
+                    {% if obj.one_br %}1BR{% endif %}
+                    {% if obj.two_br %}2BR{% endif %}
+                    {% if obj.three_br %}3BR{% endif %}
+                    {% if obj.studio %}Studio{% endif %}
+      </p>
     </div>
 
     <div class="col-md-6">
@@ -66,8 +57,6 @@
   $(document).ready(function() {
       $('#multiselect').multiselect();
       $('.maps').css('height', $(window).height()+'px');
-      document.getElementById("face").style.display = "";
-      document.getElementById("back").style.display = "none";
       $(".num-input").keydown(function(e) {
           if($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110]) !== -1 ||
             (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
@@ -82,13 +71,6 @@
       });
   });
 
-
-
-  function display(show, hide) {
-    document.getElementById(show).style.display = "";
-    document.getElementById(hide).style.display = "none";
-
-  }
 
 </script>
 {% endblock %}

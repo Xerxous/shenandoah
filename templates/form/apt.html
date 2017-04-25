@@ -1,0 +1,33 @@
+<form class="form" action="#" autocomplete="off" method="post">
+  {% csrf_token %}
+  <div class="form-group">
+    <div class="col-md-6">
+      <h4>Contact Information</h4>
+      <label>Agency</label>
+      <input type="text" class="form-control" size="50" placeholder="Name" name="name">
+      <label>Phone Number</label>
+      <input type="text" class="form-control" size="12" placeholder="Name" name="name">
+      <label>Email</label>
+      <input type="text" class="form-control" size="20" placeholder="Name" name="name">
+    </div>
+    <div class="col-md-6">
+      <h4>Apartment Information</h4>
+      <label>Area</label>
+      <select class="form-control" name="area">
+        <option value="none">None</option>
+        <option value="Baltimore City">Baltimore City</option>
+        <option value="Baltimore County">Baltimore County</option>
+      </select>
+      <label>Price Range</label>
+      <div class="input-group">
+        <div class="input-group-addon">$</div>
+        <input type="text" class="form-control num-input" size="7" maxlength="5" placeholder="Low" name="low">
+        <div class="input-group-addon">-</div>
+        <input type="text" class="form-control num-input" size="7" maxlength="5" placeholder="High" name="high">
+      </div>
+    </div>
+  </div>
+
+    <input type="text" class="form-control num-input" size="7"  maxlength="5" placeholder="Zip code" name="zip">
+  <button type="submit" class="btn btn-default">Search</button>
+</form>

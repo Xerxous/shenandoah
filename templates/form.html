@@ -10,50 +10,19 @@
 {% block content %}
 {% include 'navbar.html' %}
 <div class="container">
+  <ul class="nav nav-tabs nav-justified tabs">
+    <li role="presentation" class="active" id="apt-tab"><a onclick="display('apt','ll')">Apartments</a></li>
+    <li role="presentation" id="ll-tab"><a onclick="display('ll','apt')">Landlords</a></li>
+  </ul>
   <div class="jumbotron">
-    {% if True %}
-    <h2>Create/Edit Apartment Entry</h2>
-    <form class="form" action="#" autocomplete="off" method="post">
-    {% elif False %}
-    <h2>Create/Edit Landlord Entry</h2>
-    <form class="form" action="#" autocomplete="off" method="post">
-    {% endif %}
-      {% csrf_token %}
-      <label>Name</label>
-      <input type="text" class="form-control" required name="name" value="{{ name }}" maxlength="50">
-      <label>Number</label>
-      <input type="text" class="form-control" required name="name" value="{{ name }}" maxlength="100">
-      <label>Email</label>
-      <input type="text" class="form-control" required name="name" value="{{ name }}" maxlength="100">
-      <label>Building</label>
-      <input type="text" class="form-control" required name="name" value="{{ name }}" maxlength="100">
-      <label>Name</label>
-      <input type="text" class="form-control" required name="name" value="{{ name }}" maxlength="100">
-      <label>Name</label>
-      <input type="text" class="form-control" required name="name" value="{{ name }}" maxlength="100">
-      <button type="submit" class="btn btn-primary pull-right">Search</button>
-    </form>
-    <p>{{ error }}</p>
+    <h2>Create an Apartment Entry</h2>
+    {% include 'form/apt.html' %}
   </div>
 </div>
 {% endblock %}
 
 {% block js %}
-<script type="text/javascript">
-  $(document).ready(function() {
-      $('#multiselect').multiselect();
-      $(".num-input").keydown(function(e) {
-          if($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110]) !== -1 ||
-            (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
-            (e.keyCode == 67 && (e.ctrlKey === true || e.metaKey === true)) ||
-            (e.keyCode == 88 && (e.ctrlKey === true || e.metaKey === true)) ||
-            (e.keyCode >= 35 && e.keyCode <= 39)){
-              return;
-          }
-          if((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)){
-              e.preventDefault();
-          }
-      });
-  });
-</script>
+  <script src="{% static 'js/bootstrap-multiselect.js' %}"></script>
+  <script src="{% static 'js/navbar.js' %}"></script>
+  <script src="{% static 'js/util.js' %}"></script>
 {% endblock %}

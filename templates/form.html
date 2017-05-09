@@ -15,8 +15,14 @@
     <li role="presentation" id="ll-tab"><a onclick="display('ll','apt')">Landlords</a></li>
   </ul>
   <div class="jumbotron">
-    <h2>Create an Apartment Entry</h2>
-    {% include 'form/apt.html' %}
+    <div id="apt">
+      <h2>Create an Apartment Entry</h2>
+      {% include 'form/apt.html' %}
+    </div>
+    <div id="ll">
+      <h2>Create a Landlord Entry</h2>
+      {% include 'form/ll.html' %}
+    </div>
   </div>
 </div>
 {% endblock %}
@@ -25,4 +31,22 @@
   <script src="{% static 'js/bootstrap-multiselect.js' %}"></script>
   <script src="{% static 'js/navbar.js' %}"></script>
   <script src="{% static 'js/util.js' %}"></script>
+  <script>
+    $(document).ready(function() {
+        $('#apt-res').multiselect();
+        $('#ll-res').multiselect();
+    });
+    document.getElementById("apt").style.display = "";
+    document.getElementById("ll").style.display = "none";
+    document.getElementById('apt-cost-notes').style.display = "none"
+    document.getElementById('apt-form-exception').onchange = function() {
+      document.getElementById('apt-low-form').disabled = this.checked;
+      document.getElementById('apt-high-form').disabled = this.checked;
+      if(this.checked){
+        document.getElementById('apt-cost-notes').style.display = ""
+      } else {
+        document.getElementById('apt-cost-notes').style.display = "none"
+      }
+    };
+  </script>
 {% endblock %}

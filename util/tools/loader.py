@@ -70,7 +70,6 @@ def load_apt(db):
             entity=db['entity'][i],
             number=db['number'][i],
             email=db['email'][i],
-            building=db['building'][i],
             st_one=db['st_one'][i],
             st_two=db['st_two'][i],
             area=db['area'][i],

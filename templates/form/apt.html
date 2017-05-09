@@ -1,33 +1,71 @@
-<form class="form" action="#" autocomplete="off" method="post">
+<form class="form" action="{% url 'home:create_apt'%}" autocomplete="off" method="post">
   {% csrf_token %}
-  <div class="form-group">
-    <div class="col-md-6">
+  <div class="row">
+    <div class="col-sm-4 col-md-4">
       <h4>Contact Information</h4>
       <label>Agency</label>
-      <input type="text" class="form-control" size="50" placeholder="Name" name="name">
+      <input type="text" class="form-control" maxlength="50" placeholder="Agency" name="agency" required>
       <label>Phone Number</label>
-      <input type="text" class="form-control" size="12" placeholder="Name" name="name">
+      <input type="text" class="form-control" maxlength="12" placeholder="###-###-####" name="phone" required>
       <label>Email</label>
-      <input type="text" class="form-control" size="20" placeholder="Name" name="name">
+      <input type="text" class="form-control" maxlength="20" placeholder="example@email.com" name="email" required>
     </div>
-    <div class="col-md-6">
+    <div class="col-sm-4 col-md-4">
       <h4>Apartment Information</h4>
-      <label>Area</label>
-      <select class="form-control" name="area">
-        <option value="none">None</option>
-        <option value="Baltimore City">Baltimore City</option>
-        <option value="Baltimore County">Baltimore County</option>
-      </select>
-      <label>Price Range</label>
+      <label>Primary Address</label>
+      <input type="text" class="form-control" maxlength="50" placeholder="Address, Street, City" name="paddress" required>
+      <label>Secondary Address</label>
+      <input type="text" class="form-control" maxlength="50" placeholder="Address, Street, City" name="saddress">
       <div class="input-group">
-        <div class="input-group-addon">$</div>
-        <input type="text" class="form-control num-input" size="7" maxlength="5" placeholder="Low" name="low">
-        <div class="input-group-addon">-</div>
-        <input type="text" class="form-control num-input" size="7" maxlength="5" placeholder="High" name="high">
+        <div class="row">
+          <div class="col-sm-6 col-md-6">
+            <label>State</label>
+            {% include 'form/states-snippet.html' %}
+          </div>
+          <div class="col-sm-6 col-md-6">
+            <label>Zipcode</label>
+            <input type="text" class="form-control num-input" maxlength="5" placeholder="Zip code" name="zip">
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+    <div class="col-sm-4 col-md-4">
+      <h4>Residence Details</h4>
+      <div class="form-group">
+        <label>Price Range</label>
+        <div class="input-group">
+          <div class="input-group-addon">$</div>
+          <input type="text" id="apt-low-form" class="form-control num-input" maxlength="5" placeholder="Low" name="low">
+          <div class="input-group-addon">-</div>
+          <input type="text" id="apt-high-form" class="form-control num-input" maxlength="5" placeholder="High" name="high">
+        </div>
+        <label>Cost Exception</label>
+        <input type="checkbox" id="apt-form-exception">
+        <input type="text" id="apt-cost-notes" class="form-control" maxlength="50" placeholder="Cost Notes" name="cost_notes">
+        <div class="row">
+          <div class="col-sm-6 col-md-6">
+            <label>Area</label>
+            <select class="form-control" name="area" required>
+              <option value="Baltimore City">Baltimore City</option>
+              <option value="Baltimore County">Baltimore County</option>
+            </select>
+          </div>
+          <div class="col-sm-6 col-md-6">
+            <label>Residence</label>
+            <select id="apt-res" multiple="multiple" name="res">
+              <option value="rooms">Room:R</option>
+              <option value="one_br">1BR:1</option>
+              <option value="two_br">2BR:2</option>
+              <option value="three_br">3BR:3</option>
+              <option value="studio">Studio:S</option>
+            </select>
+          </div>
+        </div>
+        <label>Additional Notes</label>
+        <input type="text" id="notes" class="form-control" maxlength="500" placeholder="Cost Notes" name="notes">
+      </div>
 
-    <input type="text" class="form-control num-input" size="7"  maxlength="5" placeholder="Zip code" name="zip">
-  <button type="submit" class="btn btn-default">Search</button>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-success">Create</button>
 </form>

@@ -67,6 +67,13 @@ def ll_delete(request, id):
 def create(request):
     return render(request, 'form.html')
 
+@login_required
+def edit(request, cat, id):
+    context = dict()
+
+    return render(request, 'form.html', context)
+
+@login_required
 def create_apt(request):
     post = request.POST
     state = 'MD'
@@ -77,8 +84,10 @@ def create_apt(request):
     one_br = False
     two_br = False
     three_br = False
-    for res in request.POST.getlist('res', False):
-        if res == 'room':
+    res_list = request.POST.getlist('res', False)
+    print(res_list)
+    for res in res_list:
+        if res == 'rooms':
             rooms = True
         elif res == 'studio':
             studio = True
@@ -100,6 +109,7 @@ def create_apt(request):
                              three_br=three_br, notes=post['notes'])
     return redirect('home:index')
 
+@login_required
 def create_ll(request):
     post = request.POST
     state = 'MD'

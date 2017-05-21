@@ -34,7 +34,7 @@
         <div class="col-md-1">
         </div>
         <div class="col-md-2">
-          <button type="button" class="btn btn-primary btn-lg">
+          <button type="button" onclick="location.href='{% url 'home:edit' obj_type obj.id %}'" class="btn btn-primary btn-lg">
             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
           </button>
         </div>

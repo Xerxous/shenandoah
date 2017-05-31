@@ -18,6 +18,12 @@ def auth(request):
         return redirect('home:index')
     return render(request, 'login.html')
 
+def notfound(request):
+    return render(request, 'errors/404.html')
+
+def servererror(request):
+    return render(request, 'errors/500.html')
+
 @login_required
 def show_logs(request):
     return render(request, 'log.html', { 'logs': reversed(Log.objects.all()) })
@@ -25,8 +31,8 @@ def show_logs(request):
 @login_required
 def landing(request):
     context = dict()
-    apt = Apartment.objects.all()
-    ll = Landlord.objects.all()
+    apt = Apartment.objects.all().order_by('entity')
+    ll = Landlord.objects.all().order_by('entity')
     if request.method == 'GET':
         context['apt'] = apt.all()
         context['ll'] = ll.all()

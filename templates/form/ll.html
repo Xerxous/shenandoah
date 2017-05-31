@@ -35,7 +35,7 @@
           </div>
           <div class="col-sm-6 col-md-6">
             <label>Zipcode</label><span class="required">*</span>
-            <input type="text" class="form-control num-input" maxlength="5" placeholder="Zip code" value="{{ obj.zipcode }}" name="zip" requried>
+            <input type="text" class="form-control num-input" maxlength="5" placeholder="Zip code" value="{{ obj.zipcode }}" name="zip" required>
           </div>
         </div>
       </div>
@@ -46,9 +46,9 @@
         <label>Price Range</label><span class="required">*</span>
         <div class="input-group">
           <div class="input-group-addon">$</div>
-          <input type="text" id="ll-low-form" class="form-control num-input" maxlength="5" placeholder="Low" value="{{ obj.low }}" name="low" onblur="costValidation('ll-low-form', 'll-high-form')" requried>
+          <input type="text" id="ll-low-form" class="form-control num-input" maxlength="5" placeholder="Low" value="{{ obj.low }}" name="low" onblur="costValidation('ll-low-form', 'll-high-form')" required>
           <div class="input-group-addon">-</div>
-          <input type="text" id="ll-high-form" class="form-control num-input" maxlength="5" placeholder="High" value="{{ obj.high }}" name="high" onblur="costValidation('ll-low-form', 'll-high-form')" requried>
+          <input type="text" id="ll-high-form" class="form-control num-input" maxlength="5" placeholder="High" value="{{ obj.high }}" name="high" onblur="costValidation('ll-low-form', 'll-high-form')" required>
         </div>
         <div class="row">
           <div class="col-sm-6 col-md-6">

@@ -35,7 +35,7 @@
           </div>
           <div class="col-sm-6 col-md-6">
             <label>Zipcode</label><span class="required">*</span>
-            <input type="text" class="form-control num-input" maxlength="5" placeholder="Zip code" value="{{ obj.zipcode }}" name="zip" requried>
+            <input type="text" class="form-control num-input" maxlength="5" placeholder="Zip code" value="{{ obj.zipcode }}" name="zip" required>
           </div>
         </div>
       </div>
@@ -46,9 +46,9 @@
         <label>Price Range</label><span class="required">*</span>
         <div class="input-group">
           <div class="input-group-addon">$</div>
-          <input type="text" id="apt-low-form" class="form-control num-input" maxlength="5" placeholder="Low" value="{{ obj.low }}" onblur="costValidation('apt-low-form', 'apt-high-form')" name="low" requried>
+          <input type="text" id="apt-low-form" class="form-control num-input" maxlength="5" placeholder="Low" value="{{ obj.low }}" onblur="costValidation('apt-low-form', 'apt-high-form')" name="low" required>
           <div class="input-group-addon">-</div>
-          <input type="text" id="apt-high-form" class="form-control num-input" maxlength="5" placeholder="High" value="{{ obj.high }}" onblur="costValidation('apt-low-form', 'apt-high-form')" name="high" requried>
+          <input type="text" id="apt-high-form" class="form-control num-input" maxlength="5" placeholder="High" value="{{ obj.high }}" onblur="costValidation('apt-low-form', 'apt-high-form')" name="high" required>
         </div>
         <label>Cost Exception</label>
         <input type="checkbox" {% if obj.cost_notes %} checked {% endif %} id="apt-form-exception">

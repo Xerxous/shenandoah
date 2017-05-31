@@ -30,18 +30,19 @@
           <input type="checkbox" class="form-control" name="strict" value="strict">
           <div class="input-group">
             <div class="input-group-addon">$</div>
-            <input type="text" class="form-control num-input" size="7" maxlength="5" placeholder="Low" name="low">
+            <input type="text" id="low" class="form-control num-input" size="7" maxlength="5" placeholder="Low" name="low" onblur="costValidation()">
             <div class="input-group-addon">-</div>
-            <input type="text" class="form-control num-input" size="7" maxlength="5" placeholder="High" name="high">
+            <input type="text" id="high" class="form-control num-input" size="7" maxlength="5" placeholder="High" name="high" onblur="costValidation()">
           </div>
-          <input type="checkbox" class="form-control" name="exception" value="exception">
+          <input type="checkbox" id="exception" class="form-control" name="exception" value="exception">
           <input type="text" class="form-control" size="15" placeholder="Name" name="name">
           <input type="text" class="form-control num-input" size="7"  maxlength="5" placeholder="Zip code" name="zip">
         </div>
         <button type="submit" class="btn btn-default">Search</button>
-        <span class="glyphicon glyphicon-question-sign"></span>
       </form>
       <ul class="nav navbar-nav navbar-right">
+        <li><a href="{% url 'home:create'%}">Create</a></li>
+        <li><a href="{% url 'home:logs'%}">Logs</a></li>
         <li><a href="{% url 'home:sign_out'%}">Logout</a></li>
       </ul>
     </div>
@@ -50,6 +51,6 @@
 
 {% block js %}
   <script>
-  window.jQuery || document.write('<script src="https://getbootstrap.com/assets/js/vendor/jquery.min.js"><\/script>')
+    window.jQuery || document.write('<script src="https://getbootstrap.com/assets/js/vendor/jquery.min.js"><\/script>')
   </script>
 {% endblock %}

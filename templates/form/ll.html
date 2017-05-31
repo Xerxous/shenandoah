@@ -1,0 +1,83 @@
+<sub>Fields indicated with <span class="required">*</span> are required fields.</sub>
+{% if not nav %}
+  <form class="form" action="{% url 'home:create_ll'%}" autocomplete="off" method="post">
+{% else %}
+  <form class="form" action="{% url 'home:edit_ll' obj.id %}" autocomplete="off" method="post">
+{% endif %}
+  {% csrf_token %}
+  <div class="row">
+    <div class="col-sm-4 col-md-4">
+      <h4>Contact Information</h4>
+      <label>Landlord</label><span class="required">*</span>
+      <input type="text" class="form-control" maxlength="50" placeholder="Name" value="{{ obj.entity }}" name="name" required>
+      <label>Phone Number</label><span class="required">*</span>
+      <div class="input-group">
+        <input type="text" class="form-control phone-number" maxlength="3" placeholder="###" value="{{ phone_one }}" name="phone1" required>
+        <div class="input-group-addon">-</div>
+        <input type="text" class="form-control phone-number" maxlength="3" placeholder="###" value="{{ phone_two }}" name="phone2" required>
+        <div class="input-group-addon">-</div>
+        <input type="text" class="form-control phone-number" maxlength="4" placeholder="####" value="{{ phone_three }}" name="phone3" required>
+      </div>
+      <label>Email</label>
+      <input type="text" class="form-control" maxlength="20" placeholder="example@email.com" value="{{ obj.email }}" name="email">
+    </div>
+    <div class="col-sm-4 col-md-4">
+      <h4>Apartment Information</h4>
+      <label>Primary Address</label><span class="required">*</span>
+      <input type="text" class="form-control" maxlength="50" placeholder="Address, Street, City" value="{{ obj.st_one }}" name="paddress" required>
+      <label>Secondary Address</label>
+      <input type="text" class="form-control" maxlength="50" placeholder="Address, Street, City" value="{{ obj.st_two }}" name="saddress">
+      <div class="input-group">
+        <div class="row">
+          <div class="col-sm-6 col-md-6">
+            <label>State</label><span class="required">*</span>
+            {% include 'form/states-snippet.html' %}
+          </div>
+          <div class="col-sm-6 col-md-6">
+            <label>Zipcode</label><span class="required">*</span>
+            <input type="text" class="form-control num-input" maxlength="5" placeholder="Zip code" value="{{ obj.zipcode }}" name="zip" required>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 col-md-4">
+      <h4>Residence Details</h4>
+      <div class="form-group">
+        <label>Price Range</label><span class="required">*</span>
+        <div class="input-group">
+          <div class="input-group-addon">$</div>
+          <input type="text" id="ll-low-form" class="form-control num-input" maxlength="5" placeholder="Low" value="{{ obj.low }}" name="low" onblur="costValidation('ll-low-form', 'll-high-form')" required>
+          <div class="input-group-addon">-</div>
+          <input type="text" id="ll-high-form" class="form-control num-input" maxlength="5" placeholder="High" value="{{ obj.high }}" name="high" onblur="costValidation('ll-low-form', 'll-high-form')" required>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-md-6">
+            <label>Area</label><span class="required">*</span>
+            <select class="form-control" name="area" required>
+              <option value="Baltimore City" {% if obj.area == 'Baltimore City' %} selected {% endif %}>Baltimore City</option>
+              <option value="Baltimore County" {% if obj.area == 'Baltimore County' %} selected {% endif %}>Baltimore County</option>
+            </select>
+          </div>
+          <div class="col-sm-6 col-md-6">
+            <label>Residence</label><span class="required">*</span>
+            <select id="ll-res" multiple="multiple" name="res" required>
+              <option value="rooms" {% if obj.rooms %} selected {% endif %}>Room:R</option>
+              <option value="one_br" {% if obj.one_br %} selected {% endif %}>1BR:1</option>
+              <option value="two_br" {% if obj.two_br %} selected {% endif %}>2BR:2</option>
+              <option value="three_br" {% if obj.three_br %} selected {% endif %}>3BR:3</option>
+              <option value="studio" {% if obj.studio %} selected {% endif %}>Studio:S</option>
+            </select>
+          </div>
+        </div>
+        <label>Additional Notes</label>
+        <input type="text" id="notes" class="form-control" maxlength="500" placeholder="Notes" value="{{ obj.notes }}" name="notes">
+      </div>
+
+    </div>
+  </div>
+  {% if not nav %}
+    <button type="submit" class="btn btn-success">Create</button>
+  {% else %}
+    <button type="submit" class="btn btn-info">Save</button>
+  {% endif %}
+</form>

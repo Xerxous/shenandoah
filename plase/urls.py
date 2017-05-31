@@ -20,3 +20,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('home.url', namespace='home'))
 ]
+
+handler404 = 'home.views.notfound'
+handler500 = 'home.views.servererror'

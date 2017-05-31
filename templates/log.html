@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+  .glyphs{
+    font-family: monospace;
+    font-weight: bold;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+  }
+  .spaced{
+    margin-top:20px;
+  }
+  .scroll{
+    background-color: #E5AACC;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 540px;
+  }
+  .thumbnail {
+    border: 0 none;
+    box-shadow: none;
+  }
+  .noresults-message{
+    margin: 17px 0;
+  }
+  .result{
+    width: 95%;
+    margin: 0 auto;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<div class="container">
+  <div class="jumbotron">
+    <h2>Activity Logs</h2>
+    <hr/>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Account</th>
+          <th>Activity</th>
+          <th>Time(EST - DST)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for log in logs %}
+          <tr>
+            <th>{{ forloop.revcounter }}</th>
+            <td>{{ log.account }}</td>
+            <td>{{ log.activity }}</td>
+            <td>{{ log.date }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+  <script src="{% static 'js/bootstrap-multiselect.js' %}"></script>
+  <script src="{% static 'js/navbar.js' %}"></script>
+{% endblock %}

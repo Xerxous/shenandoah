@@ -94,6 +94,9 @@
                 <a href="{% url 'home:apt_detail' element.id %}" class="list-group-item spaced">
                   <h4 class="list-group-item-heading">{{ element.entity }}</h4>
                   <p class="list-group-item-text">{{ element.zipcode }} {{ element.area }}</p>
+                  {% if element.notes %}
+                    <p class="list-group-item-text"><b>Notes:</b> {{ element.notes }}</p>
+                  {% endif %}
                   <div class="glyphs">
                     {% if element.rooms %}R{% endif %}
                     {% if element.one_br %}1{% endif %}
@@ -137,7 +140,11 @@
                 <div class="row result">
                   <a href="{% url 'home:ll_detail' element.id %}" class="list-group-item spaced">
                     <h4 class="list-group-item-heading">{{ element.entity }}</h4>
+                    <p class="list-group-item-text">{{ element.st_one }} {{ element.st_two }}</p>
                     <p class="list-group-item-text">{{ element.zipcode }} {{ element.city }}</p>
+                    {% if element.notes %}
+                      <p class="list-group-item-text"><b>Notes:</b> {{ element.notes }}</p>
+                    {% endif %}
                     <div class="glyphs">
                       {% if element.rooms %}R{% endif %}
                       {% if element.one_br %}1{% endif %}

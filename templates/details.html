@@ -44,11 +44,15 @@
 
       <h1>{{ obj.entity }}</h1>
       <hr/>
-      <p>Contact Information: {{ obj.number }}</p>
+      <p>Phone number: {{ obj.number }}</p>
+      {% if obj.email %}
+        <p>Email: {{ obj.email }}</p>
+      {% endif %}
       <p>Address: {{ obj.st_one }}</p>
       <p>{{ obj.st_two }}</p>
       <p>Area: {{ obj.city }} {{ obj.area }}</p>
       <p>Zipcode: {{ obj.zipcode }}</p>
+      <p>State: {{ obj.state }}
       <p>Price:
         {% if obj.low == 0 and obj.high == 0 %}
           {{ obj.cost_notes }}
@@ -62,6 +66,7 @@
                     {% if obj.three_br %}3BR{% endif %}
                     {% if obj.studio %}Studio{% endif %}
       </p>
+      <p>Additional notes: {{ obj.notes }}</p>
     </div>
 
     <div class="col-md-6">

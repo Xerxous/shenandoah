@@ -1,6 +1,21 @@
 from django.db import models
+from datetime import datetime
 
 # Create your models here.
+class Log(models.Model):
+    account = models.CharField(max_length=50, default='anonymous', blank=False)
+    activity = models.CharField(max_length=100, default='unknown', blank=False)
+    date = models.DateTimeField('(UTC)', default=datetime.now, blank=False)
+
+    def __unicode__(self):
+        return '%s: %s' % (self.account, self.activity)
+
+    def __str__(self):
+        return '%s: %s' % (self.account, self.activity)
+
+    class Meta:
+        verbose_name_plural = "Logs"
+
 class Apartment(models.Model):
     entity = models.CharField(max_length=50, default='', blank=False)
     number = models.CharField(max_length=12, default='', blank=False) # Phone Number including dashes

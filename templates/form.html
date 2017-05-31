@@ -3,26 +3,42 @@
 
 {% block css %}
 <style>
-
+  .required{
+    color: red;
+  }
 </style>
 {% endblock %}
 
 {% block content %}
 {% include 'navbar.html' %}
 <div class="container">
-  <ul class="nav nav-tabs nav-justified tabs">
-    <li role="presentation" class="active" id="apt-tab"><a onclick="display('apt','ll')">Apartments</a></li>
-    <li role="presentation" id="ll-tab"><a onclick="display('ll','apt')">Landlords</a></li>
-  </ul>
+  {% if not nav %}
+    <ul class="nav nav-tabs nav-justified tabs">
+      <li role="presentation" class="active" id="apt-tab"><a onclick="display('apt','ll')">Apartments</a></li>
+      <li role="presentation" id="ll-tab"><a onclick="display('ll','apt')">Landlords</a></li>
+    </ul>
+  {% endif %}
   <div class="jumbotron">
-    <div id="apt">
-      <h2>Create an Apartment Entry</h2>
-      {% include 'form/apt.html' %}
-    </div>
-    <div id="ll">
-      <h2>Create a Landlord Entry</h2>
-      {% include 'form/ll.html' %}
-    </div>
+    {% if nav == 'apt' %}
+      <div id="apt">
+        <h2>Edit Apartment: {{ obj.entity }}</h2>
+        {% include 'form/apt.html' %}
+      </div>
+    {% elif nav == 'll' %}
+      <div id="ll">
+        <h2>Edit Landlord: {{ obj.entity }}</h2>
+        {% include 'form/ll.html' %}
+      </div>
+    {% else %}
+      <div id="apt">
+        <h2>Create an Apartment Entry</h2>
+        {% include 'form/apt.html' %}
+      </div>
+      <div id="ll">
+        <h2>Create a Landlord Entry</h2>
+        {% include 'form/ll.html' %}
+      </div>
+    {% endif %}
   </div>
 </div>
 {% endblock %}
@@ -35,18 +51,20 @@
     $(document).ready(function() {
         $('#apt-res').multiselect();
         $('#ll-res').multiselect();
+        $(".phone-number").keydown(function(e) {
+            if($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110]) !== -1 ||
+              (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+              (e.keyCode == 67 && (e.ctrlKey === true || e.metaKey === true)) ||
+              (e.keyCode == 88 && (e.ctrlKey === true || e.metaKey === true)) ||
+              (e.keyCode >= 35 && e.keyCode <= 39)){
+                return;
+            }
+            if((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)){
+                e.preventDefault();
+            }
+        });
     });
     document.getElementById("apt").style.display = "";
     document.getElementById("ll").style.display = "none";
-    document.getElementById('apt-cost-notes').style.display = "none"
-    document.getElementById('apt-form-exception').onchange = function() {
-      document.getElementById('apt-low-form').disabled = this.checked;
-      document.getElementById('apt-high-form').disabled = this.checked;
-      if(this.checked){
-        document.getElementById('apt-cost-notes').style.display = ""
-      } else {
-        document.getElementById('apt-cost-notes').style.display = "none"
-      }
-    };
   </script>
 {% endblock %}

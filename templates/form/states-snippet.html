@@ -1,53 +1,53 @@
-<select class="form-control" name="state">
-	<option value="MD">Maryland</option>
-	<option value="AL">Alabama</option>
-	<option value="AK">Alaska</option>
-	<option value="AZ">Arizona</option>
-	<option value="AR">Arkansas</option>
-	<option value="CA">California</option>
-	<option value="CO">Colorado</option>
-	<option value="CT">Connecticut</option>
-	<option value="DE">Delaware</option>
-	<option value="DC">District Of Columbia</option>
-	<option value="FL">Florida</option>
-	<option value="GA">Georgia</option>
-	<option value="HI">Hawaii</option>
-	<option value="ID">Idaho</option>
-	<option value="IL">Illinois</option>
-	<option value="IN">Indiana</option>
-	<option value="IA">Iowa</option>
-	<option value="KS">Kansas</option>
-	<option value="KY">Kentucky</option>
-	<option value="LA">Louisiana</option>
-	<option value="ME">Maine</option>
-	<option value="MA">Massachusetts</option>
-	<option value="MI">Michigan</option>
-	<option value="MN">Minnesota</option>
-	<option value="MS">Mississippi</option>
-	<option value="MO">Missouri</option>
-	<option value="MT">Montana</option>
-	<option value="NE">Nebraska</option>
-	<option value="NV">Nevada</option>
-	<option value="NH">New Hampshire</option>
-	<option value="NJ">New Jersey</option>
-	<option value="NM">New Mexico</option>
-	<option value="NY">New York</option>
-	<option value="NC">North Carolina</option>
-	<option value="ND">North Dakota</option>
-	<option value="OH">Ohio</option>
-	<option value="OK">Oklahoma</option>
-	<option value="OR">Oregon</option>
-	<option value="PA">Pennsylvania</option>
-	<option value="RI">Rhode Island</option>
-	<option value="SC">South Carolina</option>
-	<option value="SD">South Dakota</option>
-	<option value="TN">Tennessee</option>
-	<option value="TX">Texas</option>
-	<option value="UT">Utah</option>
-	<option value="VT">Vermont</option>
-	<option value="VA">Virginia</option>
-	<option value="WA">Washington</option>
-	<option value="WV">West Virginia</option>
-	<option value="WI">Wisconsin</option>
-	<option value="WY">Wyoming</option>
+<select class="form-control" name="state" required>
+	<option value="MD" {% if obj.state == 'MD' %} selected {% endif %}>Maryland</option>
+	<option value="AL" {% if obj.state == 'AL' %} selected {% endif %}>Alabama</option>
+	<option value="AK" {% if obj.state == 'AK' %} selected {% endif %}>Alaska</option>
+	<option value="AZ" {% if obj.state == 'AZ' %} selected {% endif %}>Arizona</option>
+	<option value="AR" {% if obj.state == 'AR' %} selected {% endif %}>Arkansas</option>
+	<option value="CA" {% if obj.state == 'CA' %} selected {% endif %}>California</option>
+	<option value="CO" {% if obj.state == 'CO' %} selected {% endif %}>Colorado</option>
+	<option value="CT" {% if obj.state == 'CT' %} selected {% endif %}>Connecticut</option>
+	<option value="DE" {% if obj.state == 'DE' %} selected {% endif %}>Delaware</option>
+	<option value="DC" {% if obj.state == 'DC' %} selected {% endif %}>District Of Columbia</option>
+	<option value="FL" {% if obj.state == 'FL' %} selected {% endif %}>Florida</option>
+	<option value="GA" {% if obj.state == 'GA' %} selected {% endif %}>Georgia</option>
+	<option value="HI" {% if obj.state == 'HI' %} selected {% endif %}>Hawaii</option>
+	<option value="ID" {% if obj.state == 'ID' %} selected {% endif %}>Idaho</option>
+	<option value="IL" {% if obj.state == 'IL' %} selected {% endif %}>Illinois</option>
+	<option value="IN" {% if obj.state == 'IN' %} selected {% endif %}>Indiana</option>
+	<option value="IA" {% if obj.state == 'IA' %} selected {% endif %}>Iowa</option>
+	<option value="KS" {% if obj.state == 'KS' %} selected {% endif %}>Kansas</option>
+	<option value="KY" {% if obj.state == 'KY' %} selected {% endif %}>Kentucky</option>
+	<option value="LA" {% if obj.state == 'LA' %} selected {% endif %}>Louisiana</option>
+	<option value="ME" {% if obj.state == 'ME' %} selected {% endif %}>Maine</option>
+	<option value="MA" {% if obj.state == 'MA' %} selected {% endif %}>Massachusetts</option>
+	<option value="MI" {% if obj.state == 'MI' %} selected {% endif %}>Michigan</option>
+	<option value="MN" {% if obj.state == 'MN' %} selected {% endif %}>Minnesota</option>
+	<option value="MS" {% if obj.state == 'MS' %} selected {% endif %}>Mississippi</option>
+	<option value="MO" {% if obj.state == 'MO' %} selected {% endif %}>Missouri</option>
+	<option value="MT" {% if obj.state == 'MT' %} selected {% endif %}>Montana</option>
+	<option value="NE" {% if obj.state == 'NE' %} selected {% endif %}>Nebraska</option>
+	<option value="NV" {% if obj.state == 'NV' %} selected {% endif %}>Nevada</option>
+	<option value="NH" {% if obj.state == 'NH' %} selected {% endif %}>New Hampshire</option>
+	<option value="NJ" {% if obj.state == 'NJ' %} selected {% endif %}>New Jersey</option>
+	<option value="NM" {% if obj.state == 'NM' %} selected {% endif %}>New Mexico</option>
+	<option value="NY" {% if obj.state == 'NY' %} selected {% endif %}>New York</option>
+	<option value="NC" {% if obj.state == 'NC' %} selected {% endif %}>North Carolina</option>
+	<option value="ND" {% if obj.state == 'ND' %} selected {% endif %}>North Dakota</option>
+	<option value="OH" {% if obj.state == 'OH' %} selected {% endif %}>Ohio</option>
+	<option value="OK" {% if obj.state == 'OK' %} selected {% endif %}>Oklahoma</option>
+	<option value="OR" {% if obj.state == 'OR' %} selected {% endif %}>Oregon</option>
+	<option value="PA" {% if obj.state == 'PA' %} selected {% endif %}>Pennsylvania</option>
+	<option value="RI" {% if obj.state == 'RI' %} selected {% endif %}>Rhode Island</option>
+	<option value="SC" {% if obj.state == 'SC' %} selected {% endif %}>South Carolina</option>
+	<option value="SD" {% if obj.state == 'SD' %} selected {% endif %}>South Dakota</option>
+	<option value="TN" {% if obj.state == 'TN' %} selected {% endif %}>Tennessee</option>
+	<option value="TX" {% if obj.state == 'TX' %} selected {% endif %}>Texas</option>
+	<option value="UT" {% if obj.state == 'UT' %} selected {% endif %}>Utah</option>
+	<option value="VT" {% if obj.state == 'VT' %} selected {% endif %}>Vermont</option>
+	<option value="VA" {% if obj.state == 'VA' %} selected {% endif %}>Virginia</option>
+	<option value="WA" {% if obj.state == 'WA' %} selected {% endif %}>Washington</option>
+	<option value="WV" {% if obj.state == 'WV' %} selected {% endif %}>West Virginia</option>
+	<option value="WI" {% if obj.state == 'WI' %} selected {% endif %}>Wisconsin</option>
+	<option value="WY" {% if obj.state == 'WY' %} selected {% endif %}>Wyoming</option>
 </select>

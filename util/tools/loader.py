@@ -5,7 +5,7 @@ SHEET_INDICIES = [0, 1]
 MODELS = ['Apartment', 'Landlord']
 COLUMNS = [
     [
-        'agency', 'number', 'email',
+        'entity', 'number', 'email',
         'building', 'st_one', 'st_two',
         'area', 'state', 'zipcode',
         'low', 'high','cost_notes',
@@ -13,7 +13,7 @@ COLUMNS = [
         'two_br', 'three_br', 'notes'
     ],
     [
-        'individual', 'number', 'email',
+        'entity', 'number', 'email',
         'st_one', 'st_two', 'city',
         'state', 'zipcode', 'low',
         'high', 'rooms', 'studio',
@@ -65,12 +65,11 @@ def load_db(db, index):
         load_landlord(db)
 
 def load_apt(db):
-    for i in range(len(db['agency'])):
+    for i in range(len(db['entity'])):
         Apartment.objects.create(
-            agency=db['agency'][i],
+            entity=db['entity'][i],
             number=db['number'][i],
             email=db['email'][i],
-            building=db['building'][i],
             st_one=db['st_one'][i],
             st_two=db['st_two'][i],
             area=db['area'][i],
@@ -85,12 +84,12 @@ def load_apt(db):
             two_br=db['two_br'][i],
             three_br=db['three_br'][i],
             notes=db['notes'][i])
-        print('Added Apartment: ' + db['agency'][i])
+        print('Added Apartment: ' + db['entity'][i])
 
 def load_landlord(db):
-    for i in range(len(db['individual'])):
+    for i in range(len(db['entity'])):
         Landlord.objects.create(
-            individual=db['individual'][i],
+            entity=db['entity'][i],
             number=db['number'][i],
             email=db['email'][i],
             st_one=db['st_one'][i],
@@ -106,7 +105,7 @@ def load_landlord(db):
             two_br=db['two_br'][i],
             three_br=db['three_br'][i],
             notes=db['notes'][i])
-        print('Added Private Landlord: ' + db['individual'][i])
+        print('Added Private Landlord: ' + db['entity'][i])
 
 def purge():
     Apartment.objects.all().delete()

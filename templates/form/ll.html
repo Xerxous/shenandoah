@@ -46,9 +46,9 @@
         <label>Price Range</label><span class="required">*</span>
         <div class="input-group">
           <div class="input-group-addon">$</div>
-          <input type="text" id="ll-low-form" class="form-control num-input" maxlength="5" placeholder="Low" value="{{ obj.low }}" name="low" requried>
+          <input type="text" id="ll-low-form" class="form-control num-input" maxlength="5" placeholder="Low" value="{{ obj.low }}" name="low" onblur="costValidation('ll-low-form', 'll-high-form')" requried>
           <div class="input-group-addon">-</div>
-          <input type="text" id="ll-high-form" class="form-control num-input" maxlength="5" placeholder="High" value="{{ obj.high }}" name="high" requried>
+          <input type="text" id="ll-high-form" class="form-control num-input" maxlength="5" placeholder="High" value="{{ obj.high }}" name="high" onblur="costValidation('ll-low-form', 'll-high-form')" requried>
         </div>
         <div class="row">
           <div class="col-sm-6 col-md-6">

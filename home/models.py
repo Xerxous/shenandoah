@@ -5,7 +5,7 @@ from datetime import datetime
 class Log(models.Model):
     account = models.CharField(max_length=50, default='anonymous', blank=False)
     activity = models.CharField(max_length=100, default='unknown', blank=False)
-    date = models.DateTimeField('(UTC)', default=datetime.now, blank=False)
+    date = models.DateTimeField('EST Time', default=datetime.now, blank=False)
 
     def __unicode__(self):
         return '%s: %s' % (self.account, self.activity)

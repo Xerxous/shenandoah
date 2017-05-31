@@ -60,19 +60,21 @@ def ll_detail(request, id):
 @login_required
 def apt_delete(request, id):
     obj = Apartment.objects.filter(id=id).last()
-    message = 'Deleted apartment object %s' % (obj.entity)
-    Log.objects.create(account=request.user, activity=message)
+    entity = obj.entity
     if obj:
         obj.delete()
+    message = 'Deleted apartment object %s' % (entity)
+    Log.objects.create(account=request.user, activity=message)
     return redirect('home:index')
 
 @login_required
 def ll_delete(request, id):
     obj = Landlord.objects.filter(id=id).last()
-    message = 'Deleted landlord object %s' % (obj.entity)
-    Log.objects.create(account=request.user, activity=message)
+    entity = obj.entity
     if obj:
         obj.delete()
+    message = 'Deleted landlord object %s' % (entity)
+    Log.objects.create(account=request.user, activity=message)
     return redirect('home:index')
 
 @login_required
@@ -126,9 +128,6 @@ def create_apt(request):
             low = post['low']
             high = post['high']
 
-        message = 'Created apartment object %s' % (post['agency'])
-        Log.objects.create(account=request.user, activity=message)
-
         Apartment.objects.create(
             entity=post['agency'], number=phone, email=post['email'],
             st_one=post['paddress'], st_two=post['saddress'], area=post['area'],
@@ -136,6 +135,10 @@ def create_apt(request):
             high=high, cost_notes=post['cost_notes'], rooms=rooms,
             studio=studio, one_br=one_br, two_br=two_br,
             three_br=three_br, notes=post['notes'])
+
+        message = 'Created apartment object %s' % (post['agency'])
+        Log.objects.create(account=request.user, activity=message)
+
     return redirect('home:index')
 
 @login_required
@@ -161,23 +164,17 @@ def create_ll(request):
             elif res == 'three_br':
                 three_br = True
 
-        if post['cost_notes']:
-            low = 0
-            high = 0
-        else:
-            low = post['low']
-            high = post['high']
-
-        message = 'Created landlord object %s' % (post['agency'])
-        Log.objects.create(account=request.user, activity=message)
-
         Landlord.objects.create(
             entity=post['name'], number=phone, email=post['email'],
             st_one=post['paddress'], st_two=post['saddress'], city=post['area'],
-            state=state, zipcode=post['zip'], low=low,
-            high=high, rooms=rooms, studio=studio,
+            state=state, zipcode=post['zip'], low=post['low'],
+            high=post['high'], rooms=rooms, studio=studio,
             one_br=one_br, two_br=two_br, three_br=three_br,
             notes=post['notes'])
+
+        message = 'Created landlord object %s' % (post['name'])
+        Log.objects.create(account=request.user, activity=message)
+
     return redirect('home:index')
 
 def edit_apt(request, id):
@@ -210,9 +207,6 @@ def edit_apt(request, id):
             low = post['low']
             high = post['high']
 
-        message = 'Edited apartment object %s' % (post['agency'])
-        Log.objects.create(account=request.user, activity=message)
-
         apartment = Apartment.objects.get(id=id)
         apartment.entity = post['agency']
         apartment.number = phone
@@ -232,6 +226,9 @@ def edit_apt(request, id):
         apartment.three_br = three_br
         apartment.notes = post['notes']
         apartment.save()
+        message = 'Edited apartment object %s' % (post['agency'])
+        Log.objects.create(account=request.user, activity=message)
+
     return redirect('home:index')
 
 def edit_ll(request, id):
@@ -256,17 +253,7 @@ def edit_ll(request, id):
                 elif res == 'three_br':
                     three_br = True
 
-            if post['cost_notes']:
-                low = 0
-                high = 0
-            else:
-                low = post['low']
-                high = post['high']
-
-            message = 'Edited landlord object %s' % (post['agency'])
-            Log.objects.create(account=request.user, activity=message)
-
-            landlord = landlord.objects.get(id=id)
+            landlord = Landlord.objects.get(id=id)
             landlord.entity = post['name']
             landlord.number = phone
             landlord.email = post['email']
@@ -275,8 +262,8 @@ def edit_ll(request, id):
             landlord.city = post['area']
             landlord.state = state
             landlord.zipcode = post['zip']
-            landlord.low = low
-            landlord.high = high
+            landlord.low = post['low']
+            landlord.high = post['high']
             landlord.rooms = rooms
             landlord.studio = studio
             landlord.one_br = one_br
@@ -284,6 +271,9 @@ def edit_ll(request, id):
             landlord.three_br = three_br
             landlord.notes = post['notes']
             landlord.save()
+            message = 'Edited landlord object %s' % (post['name'])
+            Log.objects.create(account=request.user, activity=message)
+
         return redirect('home:index')
 
 @login_required

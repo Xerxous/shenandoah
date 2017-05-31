@@ -152,7 +152,7 @@
                         ${{ element.low }} - ${{ element.high }}
                       {% endif %}
                     </span></h4>
-                    <a href="{% url 'home:ll_delete' element.id %}"><span class="label label-danger pull-right">X</span></a>
+                    <a href="{% url 'home:ll_delete' element.id %}" onclick="return confirm('Are you sure you want to delete this entry?')"><span class="label label-danger pull-right">X</span></a>
                   </a>
                 </div>
               {% endfor %}

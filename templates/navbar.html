@@ -30,9 +30,9 @@
           <input type="checkbox" class="form-control" name="strict" value="strict">
           <div class="input-group">
             <div class="input-group-addon">$</div>
-            <input type="text" id="low" class="form-control num-input" size="7" maxlength="5" placeholder="Low" name="low">
+            <input type="text" id="low" class="form-control num-input" size="7" maxlength="5" placeholder="Low" name="low" onblur="costValidation()">
             <div class="input-group-addon">-</div>
-            <input type="text" id="high" class="form-control num-input" size="7" maxlength="5" placeholder="High" name="high">
+            <input type="text" id="high" class="form-control num-input" size="7" maxlength="5" placeholder="High" name="high" onblur="costValidation()">
           </div>
           <input type="checkbox" id="exception" class="form-control" name="exception" value="exception">
           <input type="text" class="form-control" size="15" placeholder="Name" name="name">

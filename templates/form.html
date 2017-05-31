@@ -66,5 +66,15 @@
     });
     document.getElementById("apt").style.display = "";
     document.getElementById("ll").style.display = "none";
+
+    function costValidation(lowLabel, highLabel){
+        var low = document.getElementById(lowLabel).value;
+        var high = document.getElementById(highLabel).value;
+        if (low && high && (parseInt(low) > parseInt(high))){
+            alert('The cost low bound must be lower than the cost high bound');
+            document.getElementById(lowLabel).value = '';
+            document.getElementById(highLabel).value = '';
+        }
+    }
   </script>
 {% endblock %}
